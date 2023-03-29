@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-import uvicorn
 from dataclasses import dataclass
 from backend.schema import BookSchema
 
@@ -9,11 +8,11 @@ app = FastAPI()
 
 @dataclass
 class Account: 
-        id: str
-        password: str 
-        name: str 
-        email: str 
-        phone: str
+    id: str
+    password: str 
+    name: str 
+    email: str 
+    phone: str
         
 @dataclass
 class Book:
@@ -31,29 +30,6 @@ class Series_Catalog:
     last_Update: str
     series_name: str
     imagre: str
-
-
-# @app.post("/login")
-# async def login(id: str, password: str):
-#     if id == Memeber.id and password == Memeber.password:
-#         return {"message": "Login successful! Welcome:" + Memeber.name }
-#     else:
-#         return {"message": "Invalid ID or Password."}
-    
-    
-# @app.post("/register")
-# async def register(id: str, password: str, name: str , email: str, phone: str):
-#     Memeber.id = id
-#     Memeber.password = password
-#     Memeber.name = name
-#     Memeber.email = email
-#     Memeber.phone = phone
-#     return {"message": "Register successful! Welcome:" + Memeber.name }
-
-
-        
-
-        
 
 # create a list of books
 
@@ -88,14 +64,9 @@ async def healthchk():
 
 # raise HTTPException(status_code=404, detail="Book not found.")
 
-# @app.post("/search_book")
-# async def search_book(book_name: str):
-#     for book in book_list:
-#         if book["book_name"] == book_name:
-#             return book
-#     return {"message": "Book not found."}
 
-# print(book_list)
+
+
 
 
 
