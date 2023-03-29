@@ -12,6 +12,16 @@ class System:
 
     def add_customer(self, customer):
         self.customer.append(customer)
+    
+    def add_book(self, book):
+        self.book.append(book)
+
+@dataclass
+class Seriessystem:
+    series: Optional[list] = field(default_factory=list)
+
+    def add_series(self, series):
+        self.series.append(series)
 
 server = System(admin=[], customer=[])
 admin1 = admin(id="admin", password="admin", name="admin", email="admin", phone="admin", permission="admin")
@@ -19,5 +29,5 @@ admin2 = admin(id="admin2", password="admin2", name="admin2", email="admin2", ph
 
 server.add_admin(admin1)
 server.add_admin(admin2)
-print(server.admin)
+print(server.admin[1])
 
