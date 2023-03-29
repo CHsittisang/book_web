@@ -28,3 +28,6 @@ class SeriesSchema(BaseModel):
     
 
     
+    
+
+    

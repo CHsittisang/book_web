@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 import uvicorn
 from dataclasses import dataclass
-from schema import BookSchema
+from backend.schema import BookSchema
 
 
 app = FastAPI()
@@ -50,35 +50,11 @@ class Series_Catalog:
 #     Memeber.phone = phone
 #     return {"message": "Register successful! Welcome:" + Memeber.name }
 
-class Series_Catalog:
-    def __init__(self, last_Update: str, series_name: str, imagre: str):
-        self.last_Update = last_Update
-        self.series_name = series_name
-        self.imagre = imagre
 
-class Book:
-    def __init__(self, book_name: str, book_id: int, type: str, tag: str, price: int, releae_date: str, suply: int, author:str):
-        self.book_name = book_name
-        self.book_id = book_id
-        self.type = type
-        self.tag = tag
-        self.price = price
-        self.releae_date = releae_date
-        self.suply = suply
-        self.author = author
         
 
         
-The_Alchemist = {
-    "book_name": "The Alchemist",
-    "book_id": 12345,
-    "type": "Fiction",
-    "tag": "Philosophical Fiction",
-    "price": 15,
-    "releae_date": "1988-01-01",
-    "suply": 100,
-    "author": "Paulo Coelho"
-}
+
 # create a list of books
 
 book_list = []
@@ -123,5 +99,3 @@ async def healthchk():
 
 
 
-if __name__ == '__main__':
-    uvicorn.run(app, host="0.0.0.0", port=80 ,debug=True)
