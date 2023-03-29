@@ -12,9 +12,6 @@ class Account:
 class admin(Account):
     permission: str
 
-    def add_book(self):
-        pass
-
 @dataclass
 class customer(Account):
     address: str
