@@ -19,7 +19,7 @@ class BookSchema(BaseModel):
     suply: str
     author: str
 
-    
+  
 class SeriesSchema(BaseModel):
     last_Update: str
     series_name: str
