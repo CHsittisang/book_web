@@ -20,9 +20,6 @@ async def register(account: AccountSchema):
     return {"message": f"Successfully registered {account.name}"}
 
 
-
-    
-    
 @app.post('/login', status_code=200)
 async def login(Login: LoginSchema):
     for i in system.customer:
