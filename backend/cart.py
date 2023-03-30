@@ -24,14 +24,3 @@ class ShoppingCart:
         return total
     
 
-    
-        
-
-
-
-
-<<<<<<< HEAD
-    
-=======
-    
->>>>>>> 27168ee428af0f02e67956eee713038d34aadc27
