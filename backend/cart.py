@@ -24,10 +24,3 @@ class ShoppingCart:
         return total
     
 
-    
-        
-
-
-
-
-    
