@@ -34,5 +34,3 @@ server.add_admin(admin1)
 server.add_admin(admin2)
 print(server.admin[1])
 
-server.add_book(book1)
-print(server.book[0])
