@@ -7,7 +7,7 @@ class Account:
     name: str
     email: str
     phone: str
-
+    
 
 @dataclass
 class admin(Account):

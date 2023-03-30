@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional , List
 from pydantic import BaseModel, Field
 
 
@@ -11,13 +11,13 @@ class AccountSchema(BaseModel):
 
 
 class BookSchema(BaseModel):
-    book_name: str 
+    catalog_name: str
+    detail_series: str
     type: str
     tag: str
-    price: int
+    img: str
     releae_date: str
-    suply: str
-    author: str
+
 
   
 class SeriesSchema(BaseModel):
@@ -26,7 +26,9 @@ class SeriesSchema(BaseModel):
     imagre: str
     
     
-
+class LoginSchema(BaseModel):
+    id: str
+    password: str
     
     
 

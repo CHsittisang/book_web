@@ -35,3 +35,4 @@ class Book:
     img: str
     releae_date: str
     number_of_product: int
+    
