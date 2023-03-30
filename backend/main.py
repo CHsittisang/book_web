@@ -32,37 +32,28 @@ from fastapi import FastAPI
 import uvicorn
 from dataclasses import dataclass
 from schema import BookSchema
-
+from system import Seriescatalog , server
 
 app = FastAPI()
 
+def Login(id, password):
+    for i in server.admin:
+        if i.id == id and i.password == password:
+            return True
+    for i in server.customer:
+        if i.id == id and i.password == password:
+            return True
+    return False
 
-@dataclass
-class Account: 
-        id: str
-        password: str 
-        name: str 
-        email: str 
-        phone: str
-        
-@dataclass
-class Book:
-    book_name: str
-    type: str
-    tag: str
-    price: int
-    releae_date: str
-    suply: str
-    author: str
-    
-    
-@dataclass
-class Series_Catalog:
-    last_Update: str
-    series_name: str
-    imagre: str
+print(Login("admin", "admin"))
 
+# @app.get('/', status_code=200)
+# @app.get('/ping', status_code=200)
+# @app.post('/ping', status_code=200)
+# async def healthchk():
+#     return {'status_code': 200, 'detail': 'OK'}
 
+<<<<<<< HEAD
 # @app.post("/login")
 # async def login(id: str, password: str):
 #     if id == Memeber.id and password == Memeber.password:
@@ -156,3 +147,5 @@ async def healthchk():
 if __name__ == '__main__':
     uvicorn.run(app, host="0.0.0.0", port=80 ,debug=True)
 >>>>>>> main
+=======
+>>>>>>> 27168ee428af0f02e67956eee713038d34aadc27
