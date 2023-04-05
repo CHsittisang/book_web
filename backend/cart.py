@@ -1,7 +1,7 @@
-from book import Book
 from typing import Optional 
-from pydantic import BaseModel, field
+from dataclasses import dataclass , field
 
+@dataclass
 class ShoppingCart: 
     product_cart: Optional[list] = field(default_factory=list)
 
