@@ -22,12 +22,4 @@ class ShoppingCart:
         for i in self.product_cart:
             total += i.quantity
         return total
-    
 
-    
-        
-
-
-
-
-    

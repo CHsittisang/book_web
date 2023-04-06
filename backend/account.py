@@ -7,11 +7,13 @@ class Account:
     name: str
     email: str
     phone: str
+    
 
 @dataclass
 class admin(Account):
     permission: str
-
+    
+    
 @dataclass
 class customer(Account):
     address: str

@@ -1,25 +1,28 @@
-from fastapi import FastAPI
-import uvicorn
-from dataclasses import dataclass
-from schema import BookSchema
-from system import Seriescatalog , server
+from fastapi import FastAPI , Request 
+from dataclasses import dataclass , field
+from backend.schema import BookSchema , AccountSchema , LoginSchema
+from backend.book import Book_catalog
+from backend.system import System , server ,customer ,system
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
 
 app = FastAPI()
 
-def Login(id, password):
-    for i in server.admin:
-        if i.id == id and i.password == password:
-            return True
-    for i in server.customer:
-        if i.id == id and i.password == password:
-            return True
-    return False
+templates = Jinja2Templates(directory="templates")
 
-print(Login("admin", "admin"))
+@app.get("/register")
+async def show_form(request: Request):
+    return templates.TemplateResponse("register_form.html", {"request": request})
 
-# @app.get('/', status_code=200)
-# @app.get('/ping', status_code=200)
-# @app.post('/ping', status_code=200)
-# async def healthchk():
-#     return {'status_code': 200, 'detail': 'OK'}
+@app.post('/register', status_code=200)
+async def register(account: AccountSchema):
+    system.add_customer(account)
+    return {"message": f"Successfully registered {account.name}"}
 
+
+@app.post('/login', status_code=200)
+async def login(Login: LoginSchema):
+    for i in system.customer:
+        if i.id == Login.id and i.password == Login.password:
+            return {"message": f"Successfully login {i.name}"}
+    return {"message": f"login fail"}
