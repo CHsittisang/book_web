@@ -7,7 +7,7 @@ import tkinter as tk
 
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\USER\Desktop\BookstoreTKinter\src\img")
+ASSETS_PATH = OUTPUT_PATH / Path(r"D:\GitHub\book_web\backend\src\img")
 
 
 def relative_to_assets(path: str) -> Path:
