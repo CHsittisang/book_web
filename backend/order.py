@@ -10,7 +10,7 @@ class order(customer):
     order_status: str
     order_date: str
     order_in_cart: str
-
+    shipment_detal: str
 
 @dataclass
 class order_history(order):
