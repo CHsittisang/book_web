@@ -19,16 +19,6 @@ class System:
     def customer_logout(self, customer: Customer):
         self.customerlogin.remove(customer)
 
-class user_system:
-    def __init__(self, id,name, email, phone,address,status_login):
-        self.id = id
-        self.name = name
-        self.email = email
-        self.phone = phone
-        self.address = address
-        self.status_login = status_login
-
-
 
 class Seriessystem:
     def __init__(self):
@@ -45,4 +35,6 @@ user_stay_login = user_system("","","","","",False)
 
 nut = Customer("nut", "1234", "nut", "email", "phone", "address")
 System.add_customer(server , nut)
+
+
 
