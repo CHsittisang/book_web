@@ -153,7 +153,6 @@ class Loginpage(tk.Frame):
         self.button_signup.place(x=1188.0,y=530.0,width=97.0,height=33.0)
             
 
-        
     def system_login(self):
         self.id = self.entry_ID.get()
         self.password = self.entry_Password.get()
@@ -178,22 +177,6 @@ class Loginpage(tk.Frame):
         
     def get_count_account(self):
         return Loginpage.count_account
-        # if server.status == True:
-        #     msg.showinfo("Login", "You are already logged in")
-        #     raise Exception("You are already logged in")
-        # if server.status == False:
-        #     for self.customer in server.customer:
-        #         if self.customer.id == self.id and self.customer.password == self.password:
-        #             server.status = True
-        #             print(self.customer , server.status)
-        #             msg.showinfo("Login", "Login Success")
-        #             System.customer_login(server, self.customer.id)
-        #             print(server.customerlogin)
-        #             self.controller.show_frame(Mainpage)
-        #             break
-        #         else:
-        #             msg.showinfo("Login", "Login Failed Plase try again")
-        #             raise Exception("Login Failed")
     
 class Registerpage(tk.Frame):
 
