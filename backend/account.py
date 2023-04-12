@@ -5,6 +5,8 @@ class Account:
         self.name = name
         self.email = email  
         self.phone = phone
+        
+        
 
 class Admin(Account):
     def __init__(self, id, password, name, email, phone,permission):
@@ -14,9 +16,10 @@ class Admin(Account):
         pass
 
 class Customer(Account):
-    def __init__(self, id, password,  name, email, phone, address):
+    def __init__(self, id, password,  name, email, phone, address , status):
         super().__init__( id, password,  name, email, phone)
         self.address = address
+        self.status = status
     
     def view_accountinfo(self):
         pass
