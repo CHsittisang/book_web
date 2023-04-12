@@ -62,7 +62,7 @@ class Mainpage(tk.Frame):
         self.Lable_main.place(x=1331, y=45)
         
         self.button_account_image = PhotoImage(file=relative_to_assets("button_account.png"))
-        self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(AccountPage) if server.customer[count_account].status else controller.show_frame(Loginpage),relief="flat")
+        self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(AccountPage) if server.customer[0].status else controller.show_frame(Loginpage),relief="flat")
         self.button_account.place(x=1207.0,y=30.0,width=56.0,height=56.0)
         
         self.button_manga_image = PhotoImage(
@@ -92,6 +92,7 @@ class Loginpage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
+        
         
         
         self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
@@ -168,7 +169,7 @@ class Loginpage(tk.Frame):
                 print(self.count_account)
                 msg.showinfo("Login", "Login Success")
                 self.controller.show_frame(Mainpage)
-                return self.count_account
+                break
             else:
                 self.count_account += 1
         if self.count_account == len(server.customer):

@@ -6,7 +6,7 @@ class System:
     def __init__(self):
         self.admin = []
         self.customer  = []
-        self.customerlogin = ""
+        self.customerlogin = []
 
     def add_admin(self, admin: Admin):
         self.admin.append(admin)
@@ -18,15 +18,6 @@ class System:
         self.customerlogin = customer
     def customer_logout(self, customer: Customer):
         self.customerlogin.remove(customer)
-
-class user_system:
-    def __init__(self, id,name, email, phone,address,status_login):
-        self.id = id
-        self.name = name
-        self.email = email
-        self.phone = phone
-        self.address = address
-        self.status_login = status_login
 
 
 
@@ -41,8 +32,10 @@ class Seriessystem:
 
 # runing
 server = System()
-user_stay_login = user_system("","","","","",False)
 
-nut = Customer("nut", "1234", "nut", "email", "phone", "address")
+
+nut = Customer("nut", "1234", "nut", "email", "phone", "address", False)
+Guest = Customer("Guest", "1234", "Guest", "email", "phone", "address", False)
+System.customer_login(server , Guest)
 System.add_customer(server , nut)
 
