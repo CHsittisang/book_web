@@ -10,6 +10,7 @@ class Admin(Account):
     def __init__(self, id, password, name, email, phone,permission):
             super().__init__( id, password, name, email, phone)
             self.permission = permission
+    
     def add_product(self):
         pass
 
