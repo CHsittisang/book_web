@@ -34,8 +34,11 @@ class Seriessystem:
 server = System()
 
 
+
 nut = Customer("nut", "1234", "nut", "email", "phone", "address", False)
 Guest = Customer("Guest", "1234", "Guest", "email", "phone", "address", False)
 System.customer_login(server , Guest)
+
 System.add_customer(server , nut)
+System.add_customer(server , nut1)
 
