@@ -1,38 +1,34 @@
-from dataclasses import dataclass , field
-from typing import Optional
-
-
-@dataclass
 class Series:
-    name: str
-    last_update: str
-    img: str
-    what_obj: str
+    def __init__(self, series_name, last_update, img, what_obj):
+        self.series_name = series_name
+        self.last_update = last_update
+        self.img = img
+        self.what_obj = what_obj
 
-
-@dataclass
 class Book_catalog:
-    catalog_name: str
-    detail_series: str
-    type: str
-    tag: str
-    img: str
-    releae_date: str
-    catalog_book_list: Optional[list] = field(default_factory=list)
+    def __init__(self, catalog_name, detail_series, type, tag, img, releae_date):
+        self.catalog_name = catalog_name
+        self.detail_series = detail_series
+        self.type = type
+        self.tag = tag
+        self.img = img
+        self.releae_date = releae_date
+        self.catalog_book_list = []
 
     def add_book_to_catalog(self, book):
         self.catalog_book_list.append(book)
 
-@dataclass
 class Book:
-    book_name: str
-    book_id: int
-    author: str
-    detail_in_book: str
-    type: str
-    tag: str
-    price: int
-    img: str
-    releae_date: str
-    number_of_product: int
+    def __init__(self, book_name, book_id, author, detail_in_book, type, tag, price, img, releae_date, number_of_product):
+        self.book_name = book_name
+        self.book_id = book_id
+        self.author = author
+        self.detail_in_book = detail_in_book
+        self.type = type
+        self.tag = tag
+        self.price = price
+        self.img = img
+        self.releae_date = releae_date
+        self.number_of_product = number_of_product
+
     

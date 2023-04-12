@@ -4,10 +4,11 @@ from account import *
 from pathlib import Path
 from tkinter import messagebox as msg
 import tkinter as tk
-
+from system import *
+from account import *
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\USER\Desktop\BookstoreTKinter\src\img")
+ASSETS_PATH = OUTPUT_PATH / Path(r"D:\GitHub\book_web\backend\src\img")
 
 
 def relative_to_assets(path: str) -> Path:
