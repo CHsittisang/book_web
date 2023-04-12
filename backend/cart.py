@@ -1,9 +1,6 @@
-from typing import Optional 
-from dataclasses import dataclass , field
-
-@dataclass
 class ShoppingCart: 
-    product_cart: Optional[list] = field(default_factory=list)
+    def __init__(self):
+        self.product_cart = []
 
     def add_to_cart_list(self, item):
         self.product_cart.append(item)

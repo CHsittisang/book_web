@@ -1,52 +1,48 @@
-from dataclasses import dataclass , field
-from typing import Optional , List
-from .account import admin , Account , customer
-from .book import Book, Series , Book_catalog
+from account import Admin , Account , Customer
+from book import Book, Series , Book_catalog
 
-
-
-
-@dataclass
 class System:
-    admin: Optional[list] = field(default_factory=list)
-    customer: Optional[list] = field(default_factory=list)
+    status = False
+    def __init__(self):
+        self.admin = []
+        self.customer  = []
+        self.customerlogin = ""
 
-    def add_admin(self, admin):
+    def add_admin(self, admin: Admin):
         self.admin.append(admin)
 
-    def add_customer(self, customer):
+    def add_customer(self, customer: Customer):
         self.customer.append(customer)
-        
+    
+    def customer_login(self, customer: Customer):
+        self.customerlogin = customer
+    def customer_logout(self, customer: Customer):
+        self.customerlogin.remove(customer)
 
-system = System()
-@dataclass
+class user_system:
+    def __init__(self, id,name, email, phone,address,status_login):
+        self.id = id
+        self.name = name
+        self.email = email
+        self.phone = phone
+        self.address = address
+        self.status_login = status_login
+
+
+
 class Seriessystem:
-    series: Optional[list] = field(default_factory=list)
+    def __init__(self):
+        self.series = []
 
     def add_series(self, series):
         self.series.append(series)
 
-server = System(admin=[], customer=[])
-admin1 = admin(id="admin", password="admin", name="admin", email="admin", phone="admin", permission="admin" )
-admin2 = admin(id="admin2", password="admin2", name="admin2", email="admin2", phone="admin2", permission="admin2")
 
 
-book1 = Book(book_name="book1", book_id=1, author="author1", detail_in_book="detail1", type="type1", tag="tag1", price=1000, img="img1", releae_date="date1", number_of_product=1)
-book2 = Book(book_name="book2", book_id=2, author="author2", detail_in_book="detail2", type="type2", tag="tag2", price=2000, img="img2", releae_date="date2", number_of_product=2)
-catalog1= Book_catalog(catalog_name="catalog1", detail_series="detail1", type="type1", tag="tag1", img="img1", releae_date="date1", catalog_book_list=[])
-catalog1.add_book_to_catalog(book1)
-catalog1.add_book_to_catalog(book2)
-Series1 = Series(name="series1", last_update="date1", img="img1", what_obj=catalog1)
+# runing
+server = System()
+user_stay_login = user_system("","","","","",False)
 
-Seriescatalog = Seriessystem(series=[])
-Seriescatalog.add_series(Series1)
-
-
-server.add_admin(admin1)
-server.add_admin(admin2)
-print(server.admin[0])
-
-
-
-
+nut = Customer("nut", "1234", "nut", "email", "phone", "address")
+System.add_customer(server , nut)
 

@@ -1,10 +1,7 @@
-from dataclasses import dataclass , field
-from typing import Optional 
-from account import customer
-
-
-@dataclass
-class order(customer):
+from account import Customer
+class order(Customer):
+    def __init__(self,id, password, status, name, email, phone,address,order_id, total_price, order_status, order_date, order_in_cart, shipment_detal):
+        super().__init__(order_id, total_price, order_status, order_date, order_in_cart, shipment_detal)
     order_id: int
     total_price: int
     order_status: str
@@ -12,9 +9,9 @@ class order(customer):
     order_in_cart: str
     shipment_detal: str
 
-@dataclass
 class order_history(order):
-    order_history_list: Optional[list] = field(default_factory=list)
+    def __init__(self,order_id, total_price, order_status, order_date, order_in_cart, shipment_detal):
+        super().__init__(order_id, total_price, order_status, order_date, order_in_cart, shipment_detal)
 
     def add_order_to_history(self, order):
         if order.order_status == "complete":
