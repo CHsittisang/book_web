@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from fastapi import FastAPI , Request 
 from dataclasses import dataclass , field
 from backend.schema import BookSchema , AccountSchema , LoginSchema
@@ -28,3 +29,6 @@ async def login(Login: LoginSchema):
         if i.id == Login.id and i.password == Login.password:
             return {"message": f"Successfully login {i.name}"}
     return {"message": f"login fail"}
+=======
+
+>>>>>>> 94cfa153faef8c151f0d63dbe522772f3d5464d8
