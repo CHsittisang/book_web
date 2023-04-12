@@ -31,10 +31,10 @@ class Seriessystem:
 
 # runing
 server = System()
-user_stay_login = user_system("","","","","",False)
+
 
 nut = Customer("nut", "1234", "nut", "email", "phone", "address")
+nut1 = Customer("nut1", "1234", "nut1", "email", "phone", "address")
 System.add_customer(server , nut)
-
-
+System.add_customer(server , nut1)
 
