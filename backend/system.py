@@ -2,7 +2,6 @@ from account import Admin , Account , Customer
 from book import Book, Series , Book_catalog
 
 class System:
-    status = False
     def __init__(self):
         self.admin = []
         self.customer  = []
@@ -37,4 +36,3 @@ nut = Customer("nut", "1234", "nut", "email", "phone", "address")
 nut1 = Customer("nut1", "1234", "nut1", "email", "phone", "address")
 System.add_customer(server , nut)
 System.add_customer(server , nut1)
-
