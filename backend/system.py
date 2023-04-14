@@ -8,6 +8,7 @@ class System:
         self.customer  = []
         self.customerlogin = []
 
+
     def add_admin(self, admin: Admin):
         self.admin.append(admin)
 
@@ -16,6 +17,10 @@ class System:
     
     def add_customerlogin(self, customer: Customer):
         self.customerlogin.append(customer)
+        
+    def Logout(self, customer: Customer):
+        self.customerlogin.remove(customer)
+        
 
 
 class Seriessystem:
