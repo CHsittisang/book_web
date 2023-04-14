@@ -31,7 +31,6 @@ class Bookstore(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
         self.frames = {}
         
-        
         for F in {Mainpage, Loginpage, Registerpage, Cartpage ,MangaPage, NovelPage, AccountPage}:
             frame = F(container, self)
             self.frames[F] = frame
@@ -39,13 +38,12 @@ class Bookstore(tk.Tk):
         self.show_frame(Mainpage)
         
         
-        
+    
     def show_frame(self, cont):
     
         frame = self.frames[cont]
         frame.tkraise()
 
-        
 class Mainpage(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -169,6 +167,7 @@ class Loginpage(tk.Frame):
                 print(self.count_account)
                 msg.showinfo("Login", "Login Success")
                 self.controller.show_frame(Mainpage)
+                
                 return self.count_account
             else:
                 self.count_account += 1
@@ -386,9 +385,27 @@ class AccountPage(tk.Frame):
         self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
         self.canvas.pack()
         use_count_account = Loginpage.get_count_account(self)
+        print("Account page" + str(use_count_account))
+        user_Id = server.customer[use_count_account].id
+        user_Name = server.customer[use_count_account].name
+        user_Email = server.customer[use_count_account].email
+        user_Phone = server.customer[use_count_account].phone
+        user_Address = server.customer[use_count_account].address
+        self.TKuser_Id = StringVar()
+        Tkuser_Name = StringVar()
+        TKuser_Email = StringVar()
+        TKuser_Phone = StringVar()
+        TKuser_Address = StringVar()
+        self.TKuser_Id.set(user_Id)
+        Tkuser_Name.set(user_Name)
+        TKuser_Email.set(user_Email)
+        TKuser_Phone.set(user_Phone)
+        TKuser_Address.set(user_Address)
+        
+
 
         self.button_account_image = PhotoImage(file=relative_to_assets("button_account.png"))
-        self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(AccountPage) if server.customer[use_count_account].status else controller.show_frame(Loginpage),relief="flat")
+        self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: [controller.show_frame(AccountPage) if server.customer[use_count_account].status else controller.show_frame(Loginpage) , self.update_label(use_count_account)],relief="flat")
         self.button_account.place(x=1207.0,y=30.0,width=56.0,height=56.0)
         
         self.button_manga_image = PhotoImage(
@@ -398,7 +415,7 @@ class AccountPage(tk.Frame):
         
         self.button_novel_image = PhotoImage(
         file=relative_to_assets("button_novel.png"))
-        self.button_novel = Button(self, image=self.button_novel_image, borderwidth=0, highlightthickness=0,command=lambda: controller.show_frame(NovelPage),relief="flat")
+        self.button_novel = Button(self, image=self.button_novel_image, borderwidth=0, highlightthickness=0,command=lambda: controller.show_frame(NovelPage) ,relief="flat")
         self.button_novel.place(x=408, y=43)
         
         
@@ -415,16 +432,23 @@ class AccountPage(tk.Frame):
         self.canvas.place(x=1030, y=110)
         self.Accountinfo = StringVar()
     
-        self.Accountinfo.set("AccountInfo  " + server.customerlogin)
+        self.Accountinfo.set("AccountInfo  ")
         self.Lable_main = Label(self, text=self.Accountinfo.get(), bg="#82c9ff", fg="white", font=("Inter", 16))
         self.Lable_main.place(x=1047.0,y=153.0)
         
-        self.Lable_ID = Label(self, text="ID", bg="#82c9ff", fg="white", font=("Inter", 16))
-        self.Lable_ID.place(x=1047.0,y=203.0)
+        self.Lable_ID = Label(self, text="ID  : " + self.TKuser_Id.get() , bg="#82c9ff", fg="white", font=("Inter", 16))
+        self.Lable_ID.place(x=1047.0,y=203.0) 
         
-        self.Lable_Name = Label(self, text="Name", bg="#82c9ff", fg="white", font=("Inter", 16))
+        self.Lable_Name = Label(self, text="Name : " + Tkuser_Name.get(), bg="#82c9ff", fg="white", font=("Inter", 16))
         self.Lable_Name.place(x=1047.0,y=253.0)
+        
     
+    def update_label(self, new_value):
+        print("update_label")
+        print(new_value)
+        self.TKuser_Id.set("ID  : " + str(new_value))
+
 
 app = Bookstore()
+
 app.mainloop()
