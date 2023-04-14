@@ -500,11 +500,11 @@ class AccountPage(tk.Frame):
         self.canvas.pack()
         
         print("Account page" + str(server.count_account))
-        TKuser_Id = StringVar()
-        Tkuser_Name = StringVar()
-        TKuser_Email = StringVar()
-        TKuser_Phone = StringVar()
-        TKuser_Address = StringVar()
+        self.TKuser_Id = StringVar()
+        self.Tkuser_Name = StringVar()
+        self.TKuser_Email = StringVar()
+        self.TKuser_Phone = StringVar()
+        self.TKuser_Address = StringVar()
         
         
         self.button_account_image = PhotoImage(file=ASSETS_PATH.joinpath("button_account.png"))
@@ -540,19 +540,19 @@ class AccountPage(tk.Frame):
         self.Lable_main = Label(self, text=self.Accountinfo.get(), bg="#82c9ff", fg="white", font=("Inter", 16))
         self.Lable_main.place(x=1047.0,y=153.0)
         
-        self.Lable_ID = Label(self, text="ID  : " + TKuser_Id.get() , bg="#82c9ff", fg="white", font=("Inter", 16))
+        self.Lable_ID = Label(self, text="ID  : " + self.TKuser_Id.get() , bg="#82c9ff", fg="white", font=("Inter", 16))
         self.Lable_ID.place(x=1047.0,y=203.0) 
         
-        self.Lable_Name = Label(self, text="Name : " + Tkuser_Name.get(), bg="#82c9ff", fg="white", font=("Inter", 16))
+        self.Lable_Name = Label(self, text="Name : " + self.Tkuser_Name.get(), bg="#82c9ff", fg="white", font=("Inter", 16))
         self.Lable_Name.place(x=1047.0,y=253.0)
         
-        self.Lable_Email = Label(self, text="Email : " + TKuser_Email.get(), bg="#82c9ff", fg="white", font=("Inter", 16))
+        self.Lable_Email = Label(self, text="Email : " + self.TKuser_Email.get(), bg="#82c9ff", fg="white", font=("Inter", 16))
         self.Lable_Email.place(x=1047.0,y=303.0)
         
-        self.Lable_Phone = Label(self, text="Phone : " + TKuser_Phone.get(), bg="#82c9ff", fg="white", font=("Inter", 16))
+        self.Lable_Phone = Label(self, text="Phone : " + self.TKuser_Phone.get(), bg="#82c9ff", fg="white", font=("Inter", 16))
         self.Lable_Phone.place(x=1047.0,y=353.0)
 
-        self.Lable_Address = Label(self, text="Address : " + TKuser_Address.get(), bg="#82c9ff", fg="white", font=("Inter", 16))
+        self.Lable_Address = Label(self, text="Address : " + self.TKuser_Address.get(), bg="#82c9ff", fg="white", font=("Inter", 16))
         self.Lable_Address.place(x=1047.0,y=403.0)
         
         self.canvas1 = Canvas(self, bg="#FEFCFF", height=2, width=348, bd=0, highlightthickness=0, relief="ridge")
@@ -562,30 +562,28 @@ class AccountPage(tk.Frame):
         file=ASSETS_PATH.joinpath("button_logout.png"))
         self.button_logout = Button(self,image=self.button_logout_image,borderwidth=0,highlightthickness=0,relief="flat")
         self.button_logout.place(x=1185.0, y=553.0, width=96.0, height=34.0)
-        
 
+        self.after(1000, self.update)
         
-
-        def update():
-            app.after(1 , updatelabel)
+    def update(self):
+        if len(server.customerlogin) == 1:
+                self.id = server.customerlogin[0].id
+                self.name = server.customerlogin[0].name
+                self.email = server.customerlogin[0].email
+                self.phone = server.customerlogin[0].phone
+                self.address = server.customerlogin[0].address
+                self.TKuser_Id.set(self.id)
+                self.Tkuser_Name.set(self.name)
+                self.TKuser_Email.set(self.email)
+                self.TKuser_Phone.set(self.phone)
+                self.TKuser_Address.set(self.address)
+                self.Lable_ID.config(text="ID  : " + self.TKuser_Id.get())
+                self.Lable_Name.config(text="Name : " + self.Tkuser_Name.get())
+                self.Lable_Email.config(text="Email : " + self.TKuser_Email.get())
+                self.Lable_Phone.config(text="Phone : " + self.TKuser_Phone.get())
+                self.Lable_Address.config(text="Address : " + self.TKuser_Address.get())
+        self.after(1000 , self.update)
             
-        def updatelabel():
-            print("ก็มานะ")
-            id = server.customerlogin[0].id
-            name = server.customerlogin[0].name
-            email = server.customerlogin[0].email
-            phone = server.customerlogin[0].phone
-            address = server.customerlogin[0].address
-            TKuser_Id.set(id)
-            Tkuser_Name.set(name)
-            TKuser_Email.set(email)
-            TKuser_Phone.set(phone)
-            TKuser_Address.set(address)
-            self.Lable_ID.config(text="ID  : " + TKuser_Id.get())
-            self.Lable_Name.config(text="Name : " + Tkuser_Name.get())
-            self.Lable_Email.config(text="Email : " + TKuser_Email.get())
-            self.Lable_Phone.config(text="Phone : " + TKuser_Phone.get())
-            self.Lable_Address.config(text="Address : " + TKuser_Address.get())
-      
+
 app = Bookstore()
 app.mainloop()
