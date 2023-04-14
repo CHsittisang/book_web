@@ -2,11 +2,10 @@ from account import Admin , Account , Customer
 from book import Book, Series , Book_catalog
 
 class System:
-    status = False
     def __init__(self):
         self.admin = []
         self.customer  = []
-        self.customerlogin = []
+        self.customerlogin = ""
 
     def add_admin(self, admin: Admin):
         self.admin.append(admin)
@@ -18,7 +17,6 @@ class System:
         self.customerlogin = customer
     def customer_logout(self, customer: Customer):
         self.customerlogin.remove(customer)
-
 
 
 class Seriessystem:
@@ -34,11 +32,7 @@ class Seriessystem:
 server = System()
 
 
-
-nut = Customer("nut", "1234", "nut", "email", "phone", "address", False)
-Guest = Customer("Guest", "1234", "Guest", "email", "phone", "address", False)
-System.customer_login(server , Guest)
-
+nut = Customer("nut", "1234", "nut", "email", "phone", "address")
+nut1 = Customer("nut1", "1234", "nut1", "email", "phone", "address")
 System.add_customer(server , nut)
 System.add_customer(server , nut1)
-
