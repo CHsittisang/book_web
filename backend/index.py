@@ -8,7 +8,7 @@ from system import *
 from account import *
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"D:\GitHub\book_web\backend\src\img")
+ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\USER\Desktop\Project TKver\backend\src\img")
 
 
 def relative_to_assets(path: str) -> Path:
@@ -31,7 +31,6 @@ class Bookstore(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
         self.frames = {}
         
-        
         for F in {Mainpage, Loginpage, Registerpage, Cartpage ,MangaPage, NovelPage, AccountPage}:
             frame = F(container, self)
             self.frames[F] = frame
@@ -39,13 +38,12 @@ class Bookstore(tk.Tk):
         self.show_frame(Mainpage)
         
         
-        
+    
     def show_frame(self, cont):
     
         frame = self.frames[cont]
         frame.tkraise()
 
-        
 class Mainpage(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -169,6 +167,7 @@ class Loginpage(tk.Frame):
                 print(self.count_account)
                 msg.showinfo("Login", "Login Success")
                 self.controller.show_frame(Mainpage)
+                
                 return self.count_account
             else:
                 self.count_account += 1
@@ -178,27 +177,14 @@ class Loginpage(tk.Frame):
         
     def get_count_account(self):
         return Loginpage.count_account
-        # if server.status == True:
-        #     msg.showinfo("Login", "You are already logged in")
-        #     raise Exception("You are already logged in")
-        # if server.status == False:
-        #     for self.customer in server.customer:
-        #         if self.customer.id == self.id and self.customer.password == self.password:
-        #             server.status = True
-        #             print(self.customer , server.status)
-        #             msg.showinfo("Login", "Login Success")
-        #             System.customer_login(server, self.customer.id)
-        #             print(server.customerlogin)
-        #             self.controller.show_frame(Mainpage)
-        #             break
-        #         else:
-        #             msg.showinfo("Login", "Login Failed Plase try again")
-        #             raise Exception("Login Failed")
+
     
 class Registerpage(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
+        
+        self.controller = controller
         self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
         self.canvas.pack()
         
@@ -266,11 +252,35 @@ class Registerpage(tk.Frame):
         self.entry_Address.place(x=1064.0, y=680.0, width=346.0, height=35.0)
         
         self.button_image_signup = PhotoImage(file=relative_to_assets("button_signup.png"))
-        self.button_signup = Button(self, image=self.button_image_signup,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Registerpage),relief="flat")
+        self.button_signup = Button(self, image=self.button_image_signup,borderwidth=0,highlightthickness=0,command=self.register,relief="flat")
         self.button_signup.place(x=1188.0,y=750.0,width=97.0,height=33.0)
         
     def register(self):
-        pass
+        self.id = self.entry_ID.get()
+        self.password = self.entry_Password.get()
+        self.name = self.entry_Name.get()
+        self.email = self.entry_Email.get()
+        self.phone = self.entry_Phone.get()
+        self.address = self.entry_Address.get()
+        if len(self.entry_ID.get()) == 0 or len(self.entry_Password.get()) == 0 or len(self.entry_Name.get()) == 0 or len(self.entry_Email.get()) == 0 or len(self.entry_Phone.get()) == 0 or len(self.entry_Address.get()) == 0:
+            msg.showerror("Error", "Please fill in all fields")
+            raise Exception("Please fill in all fields")
+        else:
+            for i in server.customer:
+                if self.id == i.id:
+                    self.entry_ID.delete(0, END)
+                    self.entry_Password.delete(0, END)
+                    msg.showerror("Error", "This ID is already in use")
+                    raise Exception("This ID is already in use")
+            print(server.customer)
+        server.add_customer(Customer(self.id, self.password, self.name, self.email, self.phone, self.address))
+        msg.showinfo("Success", "Register Success")
+        self.controller.show_frame(Mainpage)
+        print(server.customer[-1])
+        
+
+
+
 
 class Cartpage(tk.Frame):
     
@@ -375,9 +385,27 @@ class AccountPage(tk.Frame):
         self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
         self.canvas.pack()
         use_count_account = Loginpage.get_count_account(self)
+        print("Account page" + str(use_count_account))
+        user_Id = server.customer[use_count_account].id
+        user_Name = server.customer[use_count_account].name
+        user_Email = server.customer[use_count_account].email
+        user_Phone = server.customer[use_count_account].phone
+        user_Address = server.customer[use_count_account].address
+        self.TKuser_Id = StringVar()
+        Tkuser_Name = StringVar()
+        TKuser_Email = StringVar()
+        TKuser_Phone = StringVar()
+        TKuser_Address = StringVar()
+        self.TKuser_Id.set(user_Id)
+        Tkuser_Name.set(user_Name)
+        TKuser_Email.set(user_Email)
+        TKuser_Phone.set(user_Phone)
+        TKuser_Address.set(user_Address)
+        
+
 
         self.button_account_image = PhotoImage(file=relative_to_assets("button_account.png"))
-        self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(AccountPage) if server.customer[use_count_account].status else controller.show_frame(Loginpage),relief="flat")
+        self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: [controller.show_frame(AccountPage) if server.customer[use_count_account].status else controller.show_frame(Loginpage) , self.update_label(use_count_account)],relief="flat")
         self.button_account.place(x=1207.0,y=30.0,width=56.0,height=56.0)
         
         self.button_manga_image = PhotoImage(
@@ -387,7 +415,7 @@ class AccountPage(tk.Frame):
         
         self.button_novel_image = PhotoImage(
         file=relative_to_assets("button_novel.png"))
-        self.button_novel = Button(self, image=self.button_novel_image, borderwidth=0, highlightthickness=0,command=lambda: controller.show_frame(NovelPage),relief="flat")
+        self.button_novel = Button(self, image=self.button_novel_image, borderwidth=0, highlightthickness=0,command=lambda: controller.show_frame(NovelPage) ,relief="flat")
         self.button_novel.place(x=408, y=43)
         
         
@@ -404,17 +432,23 @@ class AccountPage(tk.Frame):
         self.canvas.place(x=1030, y=110)
         self.Accountinfo = StringVar()
     
-        self.Accountinfo.set("AccountInfo  " + server.customerlogin)
+        self.Accountinfo.set("AccountInfo  ")
         self.Lable_main = Label(self, text=self.Accountinfo.get(), bg="#82c9ff", fg="white", font=("Inter", 16))
         self.Lable_main.place(x=1047.0,y=153.0)
         
-        self.Lable_ID = Label(self, text="ID", bg="#82c9ff", fg="white", font=("Inter", 16))
-        self.Lable_ID.place(x=1047.0,y=203.0)
+        self.Lable_ID = Label(self, text="ID  : " + self.TKuser_Id.get() , bg="#82c9ff", fg="white", font=("Inter", 16))
+        self.Lable_ID.place(x=1047.0,y=203.0) 
         
-        self.Lable_Name = Label(self, text="Name", bg="#82c9ff", fg="white", font=("Inter", 16))
+        self.Lable_Name = Label(self, text="Name : " + Tkuser_Name.get(), bg="#82c9ff", fg="white", font=("Inter", 16))
         self.Lable_Name.place(x=1047.0,y=253.0)
+        
     
+    def update_label(self, new_value):
+        print("update_label")
+        print(new_value)
+        self.TKuser_Id.set("ID  : " + str(new_value))
+
 
 app = Bookstore()
-app.mainloop()
 
+app.mainloop()
