@@ -2,10 +2,12 @@ from account import Admin , Account , Customer
 from book import Book, Series , Book_catalog
 
 class System:
+    count_account = 0
     def __init__(self):
         self.admin = []
         self.customer  = []
-        self.customerlogin = ""
+        self.customerlogin = []
+
 
     def add_admin(self, admin: Admin):
         self.admin.append(admin)
@@ -13,10 +15,12 @@ class System:
     def add_customer(self, customer: Customer):
         self.customer.append(customer)
     
-    def customer_login(self, customer: Customer):
-        self.customerlogin = customer
-    def customer_logout(self, customer: Customer):
+    def add_customerlogin(self, customer: Customer):
+        self.customerlogin.append(customer)
+        
+    def Logout(self, customer: Customer):
         self.customerlogin.remove(customer)
+        
 
 
 class Seriessystem:
@@ -31,8 +35,9 @@ class Seriessystem:
 # runing
 server = System()
 
-
+Guest = Customer("Guest", "1234", "Guest", "email", "phone", "address")
 nut = Customer("nut", "1234", "nut", "email", "phone", "address")
 nut1 = Customer("nut1", "1234", "nut1", "email", "phone", "address")
+System.add_customer(server , Guest)
 System.add_customer(server , nut)
 System.add_customer(server , nut1)
