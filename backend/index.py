@@ -8,7 +8,7 @@ from system import *
 from account import *
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\USER\Desktop\Project TKver\backend\src\img")
+ASSETS_PATH = OUTPUT_PATH / Path(r"D:\GitHub\book_web\backend\src\img")
 
 
 def relative_to_assets(path: str) -> Path:
@@ -17,7 +17,9 @@ def relative_to_assets(path: str) -> Path:
 LARGE_FONT= ("Verdana", 12)
 
 
+
 class Bookstore(tk.Tk):
+    
     def __init__(self, *args ,**kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
         tk.Tk.geometry(self, "1440x924")
@@ -25,24 +27,24 @@ class Bookstore(tk.Tk):
         tk.Tk.resizable(self, False, False)
         container = tk.Frame(self)
         container.pack(side="top", fill="both", expand=True)
-
         
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
         self.frames = {}
         
+
         for F in {Mainpage, Loginpage, Registerpage, Cartpage ,MangaPage, NovelPage, AccountPage}:
             frame = F(container, self)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
         self.show_frame(Mainpage)
-        
-        
+                
     
     def show_frame(self, cont):
     
         frame = self.frames[cont]
         frame.tkraise()
+    
 
 class Mainpage(tk.Frame):
 
@@ -51,7 +53,7 @@ class Mainpage(tk.Frame):
         
         self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
         self.canvas.pack()
-        use_count_account = Loginpage.get_count_account(self)
+        use_count_account = get_count_account()
 
         self.showname = "Guest"
         self.TKshowname = StringVar()
@@ -92,8 +94,7 @@ class Loginpage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        
-        
+
         self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
         self.canvas.pack()
         self.button_account_image = PhotoImage(file=relative_to_assets("button_account.png"))
@@ -158,24 +159,25 @@ class Loginpage(tk.Frame):
         self.entry_Password.delete(0,END)
         for i in server.customer:
             print(i)
-            print(self.count_account)
+            print(Loginpage.count_account)
             if i.id == self.id and i.password == self.password and i.status == False:
-                print(server.customer[self.count_account].status)
-                server.customer[self.count_account].status = True
-                print(server.customer[self.count_account].status)
+                print(server.customer[Loginpage.count_account].status)
+                server.customer[Loginpage.count_account].status = True
+                print(server.customer[Loginpage.count_account].status)
                 print(self.count_account)
                 msg.showinfo("Login", "Login Success")
                 self.controller.show_frame(Mainpage)
-                
-                return self.count_account
+                return Loginpage.count_account
             else:
-                self.count_account += 1
+                Loginpage.count_account += 1
         if self.count_account == len(server.customer):
             msg.showerror("Login", "Login Failed Plase try again")
             raise Exception("Login Failed")
         
     def get_count_account(self):
+        print(Loginpage.count_account)
         return Loginpage.count_account
+
 class Registerpage(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -185,7 +187,8 @@ class Registerpage(tk.Frame):
         self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
         self.canvas.pack()
         
-        use_count_account = Loginpage.get_count_account(self)
+        use_count_account = get_count_account()
+ 
 
         self.button_account_image = PhotoImage(file=relative_to_assets("button_account.png"))
         self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(AccountPage) if server.customer[use_count_account].status else controller.show_frame(Loginpage),relief="flat")
@@ -285,7 +288,8 @@ class Cartpage(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
         self.canvas.pack()
-        use_count_account = Loginpage.get_count_account(self)
+        use_count_account = get_count_account()
+
 
         self.button_account_image = PhotoImage(file=relative_to_assets("button_account.png"))
         self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(AccountPage) if server.customer[use_count_account].status else controller.show_frame(Loginpage),relief="flat")
@@ -317,7 +321,8 @@ class MangaPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
         self.canvas.pack()
-        use_count_account = Loginpage.get_count_account(self)
+        use_count_account = get_count_account()
+
 
         self.button_account_image = PhotoImage(file=relative_to_assets("button_account.png"))
         self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(AccountPage) if server.customer[use_count_account].status else controller.show_frame(Loginpage),relief="flat")
@@ -349,7 +354,8 @@ class NovelPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
         self.canvas.pack()
-        use_count_account = Loginpage.get_count_account(self)
+        use_count_account = get_count_account()
+
         
         self.button_account_image = PhotoImage(file=relative_to_assets("button_account.png"))
         self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(AccountPage) if server.customer[use_count_account].status else controller.show_frame(Loginpage),relief="flat")
@@ -381,7 +387,8 @@ class AccountPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
         self.canvas.pack()
-        use_count_account = Loginpage.get_count_account(self)
+        use_count_account = get_count_account()
+
         print("Account page" + str(use_count_account))
         user_Id = server.customer[use_count_account].id
         user_Name = server.customer[use_count_account].name
@@ -447,5 +454,5 @@ class AccountPage(tk.Frame):
 
 
 app = Bookstore()
-
 app.mainloop()
+
