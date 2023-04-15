@@ -1,14 +1,15 @@
 class Series:
-    def __init__(self, series_name, last_update, img, what_obj):
+    def __init__(self, series_name, detail_series,last_update, img, author, book_catalog_obj):
         self.series_name = series_name
+        self.detail_series = detail_series
         self.last_update = last_update
         self.img = img
-        self.what_obj = what_obj
+        self.author = author
+        self.book_catalog_obj = book_catalog_obj
 
 class Book_catalog:
-    def __init__(self, catalog_name, detail_series, type, tag, img, releae_date):
+    def __init__(self, catalog_name, type, tag, img, releae_date):
         self.catalog_name = catalog_name
-        self.detail_series = detail_series
         self.type = type
         self.tag = tag
         self.img = img
@@ -16,13 +17,11 @@ class Book_catalog:
         self.catalog_book_list = []
 
 class Book:
-    def __init__(self, book_name, book_id, author, detail_in_book, type, tag, price, img, releae_date, number_of_product):
+    def __init__(self, book_name, book_id, detail_in_book, type, price, img,  releae_date, number_of_product):
         self.book_name = book_name
         self.book_id = book_id
-        self.author = author
         self.detail_in_book = detail_in_book
         self.type = type
-        self.tag = tag
         self.price = price
         self.img = img
         self.releae_date = releae_date
