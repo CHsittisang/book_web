@@ -543,6 +543,7 @@ class AccountPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
         self.canvas.pack()
+        self.controller = controller
         
         print("Account page" + str(server.count_account))
         self.TKuser_Id = StringVar()
@@ -605,11 +606,18 @@ class AccountPage(tk.Frame):
 
         self.button_logout_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_logout.png"))
-        self.button_logout = Button(self,image=self.button_logout_image,borderwidth=0,highlightthickness=0,relief="flat")
+        self.button_logout = Button(self,image=self.button_logout_image,borderwidth=0,highlightthickness=0,command=self.logout ,relief="flat")
         self.button_logout.place(x=1185.0, y=553.0, width=96.0, height=34.0)
+
+        
 
         self.after(1000, self.update)
         
+    def logout(self):
+        server.customerlogin.clear()
+        self.controller.show_frame(Mainpage)
+        server.count_account == 0
+
     def update(self):
         if len(server.customerlogin) == 1:
                 self.id = server.customerlogin[0].id
