@@ -619,7 +619,6 @@ class AccountPage(tk.Frame):
         server.customerlogin.clear()
         self.controller.show_frame(Mainpage)
         server.count_account = 0
-        print(server.customerlogin)
 
     def update(self):
         if len(server.customerlogin) == 1:
