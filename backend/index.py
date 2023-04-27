@@ -33,7 +33,7 @@ class Bookstore(tk.Tk):
             frame = F(container, self)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
-        self.show_frame(SuzumeSeriesPage)
+        self.show_frame(Mainpage)
         
         
     
@@ -216,6 +216,7 @@ class Loginpage(tk.Frame):
         self.password = self.entry_Password.get()
         self.entry_ID.delete(0,END)
         self.entry_Password.delete(0,END)
+        print(server.customer)
         for i in server.customer:
             print(i)
             print(server.count_account)
@@ -543,6 +544,7 @@ class AccountPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
         self.canvas.pack()
+        self.controller = controller
         
         print("Account page" + str(server.count_account))
         self.TKuser_Id = StringVar()
@@ -553,7 +555,7 @@ class AccountPage(tk.Frame):
         
         
         self.button_account_image = PhotoImage(file=ASSETS_PATH.joinpath("button_account.png"))
-        self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: [controller.show_frame(AccountPage) if len(server.customerlogin) == 1 else controller.show_frame(Loginpage) , update()],relief="flat")
+        self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: [controller.show_frame(AccountPage) if len(server.customerlogin) == 1 else controller.show_frame(Loginpage) , self.update()],relief="flat")
         self.button_account.place(x=1207.0,y=30.0,width=56.0,height=56.0)
         
         self.button_manga_image = PhotoImage(
@@ -605,11 +607,19 @@ class AccountPage(tk.Frame):
 
         self.button_logout_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_logout.png"))
-        self.button_logout = Button(self,image=self.button_logout_image,borderwidth=0,highlightthickness=0,relief="flat")
+        self.button_logout = Button(self,image=self.button_logout_image,borderwidth=0,highlightthickness=0,command=self.logout ,relief="flat")
         self.button_logout.place(x=1185.0, y=553.0, width=96.0, height=34.0)
+
+        
 
         self.after(1000, self.update)
         
+    def logout(self):
+        server.customer[server.count_account].status = False
+        server.customerlogin.clear()
+        self.controller.show_frame(Mainpage)
+        server.count_account = 0
+
     def update(self):
         if len(server.customerlogin) == 1:
                 self.id = server.customerlogin[0].id
