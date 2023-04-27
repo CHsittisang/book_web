@@ -216,6 +216,7 @@ class Loginpage(tk.Frame):
         self.password = self.entry_Password.get()
         self.entry_ID.delete(0,END)
         self.entry_Password.delete(0,END)
+        print(server.customer)
         for i in server.customer:
             print(i)
             print(server.count_account)
@@ -614,9 +615,11 @@ class AccountPage(tk.Frame):
         self.after(1000, self.update)
         
     def logout(self):
+        server.customer[server.count_account].status = False
         server.customerlogin.clear()
         self.controller.show_frame(Mainpage)
-        server.count_account == 0
+        server.count_account = 0
+        print(server.customerlogin)
 
     def update(self):
         if len(server.customerlogin) == 1:
