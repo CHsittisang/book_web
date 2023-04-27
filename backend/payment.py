@@ -11,6 +11,7 @@ class PrompPay(payment):
     def __init__(self, payment_id, payment_status, payment_date, payment_detail, payment_price, discount, tel_number):
         super().__init__(payment_id, payment_status, payment_date, payment_detail, payment_price, discount)
         self.tel_number = tel_number
+    
 
 class CreditCard(payment):
     def __init__(self, payment_id, payment_status, payment_date, payment_detail, payment_price, discount, card_number, card_name, card_date, card_cvv):

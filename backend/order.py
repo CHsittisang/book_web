@@ -16,3 +16,6 @@ class order_history(order):
     def add_order_to_history(self, order):
         if order.order_status == "complete":
             self.order_history_list.append(order)
+
+
+    

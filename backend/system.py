@@ -20,7 +20,6 @@ class System:
         
     def Logout(self, customer: Customer):
         self.customerlogin.remove(customer)
-        
 
 
 class Seriessystem:
