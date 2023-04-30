@@ -29,11 +29,11 @@ class Bookstore(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
         self.frames = {}
         
-        for F in {Mainpage, Loginpage, Registerpage, Cartpage ,MangaPage, NovelPage, AccountPage, SuzumeSeriesPage}:
+        for F in {Mainpage, Loginpage, Registerpage, Cartpage ,MangaPage, NovelPage, AccountPage, Seriespage ,ClassroomPage}:
             frame = F(container, self)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
-        self.show_frame(SuzumeSeriesPage)
+        self.show_frame(AccountPage)
         
         
     
@@ -49,7 +49,7 @@ class Mainpage(tk.Frame):
         
         self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
         self.canvas.pack()
-        
+        self.controller = controller
 
         self.showname = "Guest"
         self.TKshowname = StringVar()
@@ -83,14 +83,14 @@ class Mainpage(tk.Frame):
         self.button_bookstore.place(x=22.0, y=30.0, width=218.0, height=54.0)
         
         self.button_serries1_image = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.series[0].img))
-        self.button_serries1 = Button(self, image=self.button_serries1_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(SuzumeSeriesPage),relief="flat")
+        self.button_serries1 = Button(self, image=self.button_serries1_image,borderwidth=0,highlightthickness=0,command=self.series_select,relief="flat")
         self.button_serries1.place(x=126.0, y=663.0, width=149.0, height=149.0)
         
         self.label_serries1 = Label(self, text=serverseries.series[0].series_name, fg="Black", font=("Inter", 8))
         self.label_serries1.place(x=126.0, y=812.0, width=149.0, height=30.0)
         
         self.button_serries2_image = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.series[1].img))
-        self.button_serries2 = Button(self, image=self.button_serries2_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(MangaPage),relief="flat")
+        self.button_serries2 = Button(self, image=self.button_serries2_image,borderwidth=0,highlightthickness=0,command=lambda: [controller.show_frame(Seriespage)],relief="flat")
         self.button_serries2.place(x=326.0, y=663.0, width=149.0, height=149.0)
         
         self.label_serries2 = Label(self, text=serverseries.series[1].series_name, fg="Black", font=("Inter", 8))
@@ -132,6 +132,12 @@ class Mainpage(tk.Frame):
         self.current_image = 0
         self.image_item = self.canvas.create_image(0, 0, anchor="nw", image=self.images[self.current_image])
         self.after(10000, self.switch_image)
+    
+    def series_select(self):
+        self.controller.show_frame(Seriespage)
+        serverseries.current_series = 0
+
+
         
         
         
@@ -553,7 +559,7 @@ class AccountPage(tk.Frame):
         
         
         self.button_account_image = PhotoImage(file=ASSETS_PATH.joinpath("button_account.png"))
-        self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: [controller.show_frame(AccountPage) if len(server.customerlogin) == 1 else controller.show_frame(Loginpage) , update()],relief="flat")
+        self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: [controller.show_frame(AccountPage) if len(server.customerlogin) == 1 else controller.show_frame(Loginpage)],relief="flat")
         self.button_account.place(x=1207.0,y=30.0,width=56.0,height=56.0)
         
         self.button_manga_image = PhotoImage(
@@ -630,9 +636,9 @@ class AccountPage(tk.Frame):
         self.after(1000 , self.update)
             
             
-class SuzumeSeriesPage(tk.Frame):
+class Seriespage(tk.Frame):
     
-     def __init__(self , parent , controller):
+    def __init__(self , parent , controller):
         tk.Frame.__init__(self, parent)
         
         self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
@@ -672,16 +678,70 @@ class SuzumeSeriesPage(tk.Frame):
         self.canvasbginfo.create_image(0, 0, anchor=NW, image=self.bginfo)
         self.suzumeinfo = PhotoImage(file=ASSETS_PATH.joinpath("Suzumeimg1.png"))
         self.canvasbginfo.create_image(154, 20, anchor=N, image=self.suzumeinfo)
-        self.canvasbginfo.create_text(154.0, 340.0, anchor=N, text=serverseries.series[0].series_name, fill="#000000",font=("Angsana New", int(16.0)))
-        self.canvasbginfo.create_text(50.0, 380.0, anchor=W, text="รูปแบบ\t" + (serverseries.series[0].book_catalog_obj.type), fill="#000000",font=("Angsana New", int(16.0)))
-        self.canvasbginfo.create_text(50.0, 420.0, anchor=W, text="ผู้แต่ง\t" + (serverseries.series[0].author), fill="#000000",font=("Angsana New", int(16.0)))
-        self.canvasbginfo.create_text(50.0, 460.0, anchor=W, text="เริ่มเผยแพร่\t" + (serverseries.series[0].book_catalog_obj.releae_date), fill="#000000",font=("Angsana New", int(12.0)))
-        self.canvasbginfo.create_text(50.0, 500.0, anchor=W, text="Tag\t" + (serverseries.series[0].book_catalog_obj.tag), fill="#000000",font=("Angsana New", int(16.0)))
+        self.seriesname = Label(self, text=serverseries.series[0].series_name,bg="#FCFCFC" ,fg="#000000",font=("Angsana New", int(16.0)))
+        self.seriesname.place(x=1070, y=486, width=300, height=40)
+        
+        self.seriestype = Label(self, text="รูปแบบ \t" + serverseries.series[0].book_catalog_obj.type,bg="#FCFCFC", anchor=W ,fg="#000000",font=("Angsana New", int(16.0)))
+        self.seriestype.place(x=1070, y=540, width=300, height=40)
+        
+        self.author = Label(self, text="ผู้แต่ง \t" + serverseries.series[0].author,bg="#FCFCFC", anchor=W ,fg="#000000",font=("Angsana New", int(16.0)))
+        self.author.place(x=1070, y=594, width=300, height=40)
+        
+        self.release = Label(self, text="วันที่เผยแพร่ \t" + serverseries.series[0].book_catalog_obj.releae_date,bg="#FCFCFC", anchor=W ,fg="#000000",font=("Angsana New", int(16.0)))
+        self.release.place(x=1070, y=648, width=300, height=40)
+        
+        self.tag = Label(self, text="Tag \t" + serverseries.series[0].book_catalog_obj.tag,bg="#FCFCFC" , anchor=W,fg="#000000",font=("Angsana New", int(16.0)))
+        self.tag.place(x=1070, y=702, width=300, height=40)
+        
         
         self.canvasdetail = Canvas(self, bg="#FEFCFF", height=429, width=841, bd=0, highlightthickness=0, relief="ridge")
         self.canvasdetail.place(x=56, y=462)
         self.canvasdetail.create_text(420.0, 20.0, anchor=N, text=serverseries.series[0].series_name, fill="#000000",font=("Angsana New", int(20.0)))
         self.canvasdetail.create_text(420.0, 60.0, anchor=N, text=serverseries.series[0].detail_series, fill="#000000",font=("Angsana New", int(16.0)))
+        
+        self.after(1000, self.updateseries)
+    def updateseries(self):
+        print(serverseries.current_series)
+        self.seriesname.config(text=serverseries.series[serverseries.current_series].series_name)
+        self.author.config(text="ผู้แต่ง \t" + serverseries.series[serverseries.current_series].author)
+        self.release.config(text="วันที่เผยแพร่ \t" + serverseries.series[serverseries.current_series].book_catalog_obj.releae_date)
+        self.tag.config(text="Tag \t" + serverseries.series[serverseries.current_series].book_catalog_obj.tag)
+        self.after(1000, self.updateseries)
+
+class ClassroomPage(tk.Frame):
+    
+    def __init__(self , parent , controller):
+        tk.Frame.__init__(self, parent)
+        
+        self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
+        self.canvas.pack()
+        
+        self.button_account_image = PhotoImage(file=ASSETS_PATH.joinpath("button_account.png"))
+        self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: [controller.show_frame(AccountPage) if len(server.customerlogin) == 1 else controller.show_frame(Loginpage)],relief="flat")
+        self.button_account.place(x=1207.0,y=30.0,width=56.0,height=56.0)
+        
+        self.button_manga_image = PhotoImage(
+        file=ASSETS_PATH.joinpath("button_manga.png"))
+        self.button_manga = Button(self, image=self.button_manga_image, borderwidth=0, highlightthickness=0,command=lambda: controller.show_frame(MangaPage),relief="flat")
+        self.button_manga.place(x=274, y=43)
+        
+        self.button_novel_image = PhotoImage(
+        file=ASSETS_PATH.joinpath("button_novel.png"))
+        self.button_novel = Button(self, image=self.button_novel_image, borderwidth=0, highlightthickness=0,command=lambda: controller.show_frame(NovelPage) ,relief="flat")
+        self.button_novel.place(x=408, y=43)
+        
+        
+        self.button_cart_image = PhotoImage(
+        file=ASSETS_PATH.joinpath("button_cart.png"))
+        self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage),relief="flat")
+        self.button_cart.place(x=1083.0, y=30.0, width=56.0, height=56.0)
+        
+        self.button_bookstore_image = PhotoImage(file=ASSETS_PATH.joinpath("button_Bookstore.png"))
+        self.button_bookstore = Button(self, image=self.button_bookstore_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
+        self.button_bookstore.place(x=22.0, y=30.0, width=218.0, height=54.0)
+        
+        self.canvassuzumebn = Canvas(self, bg="#1895F5", height=313, width=839, bd=0, highlightthickness=0, relief="ridge")
+        self.canvassuzumebn.place(x=58, y=140)
         
 app = Bookstore()
 app.mainloop()

@@ -24,6 +24,7 @@ class System:
 
 
 class Seriessystem:
+    current_series = 0
     def __init__(self):
         self.series = []
 
