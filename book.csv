@@ -1,3 +1,0 @@
-catalog_name,type,tag,img,release_date,book_name,book_id,detail_in_book,type,price,img,release_date,number_of_product
-Catalog A,Fiction,Tag A,img_A.jpg,2022-01-01,Book 1,001,Details of Book 1,Fiction,10.0,book_1.jpg,2022-01-01,100
-Catalog A,Fiction,Tag A,img_A.jpg,2022-01-01,Book 2,002,Details of Book 2,Fiction,12.5,book_2.jpg,2022-02-01,50
