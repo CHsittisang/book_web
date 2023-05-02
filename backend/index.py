@@ -29,7 +29,7 @@ class Bookstore(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
         self.frames = {}
         
-        for F in {Mainpage, Loginpage, Registerpage, Cartpage ,MangaPage, NovelPage, AccountPage, Seriespage    }:
+        for F in {Mainpage, Loginpage, Registerpage, Cartpage ,MangaPage, NovelPage, AccountPage, Seriespage}:
             frame = F(container, self)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
@@ -677,12 +677,12 @@ class Seriespage(tk.Frame):
         
         self.canvasbanner = Canvas(self, bg="#1895F5", height=313, width=839, bd=0, highlightthickness=0, relief="ridge")
         self.canvasbanner.place(x=58, y=140)
-        
         self.seriesbanner = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.book_catalog_list[0].img))
-        self.canvasbanner.create_image(0, 0, anchor=NW, image=self.seriesbanner)
+        self.canvas_image = self.canvasbanner.create_image(0, 0, anchor=NW, image=self.seriesbanner)
+        
+        
         self.canvasbginfo = Canvas(self, bg="#FEFCFF", height=760, width=308, bd=0, highlightthickness=0, relief="ridge")
         self.canvasbginfo.place(x=1064, y=140)
-        
         self.bginfo = PhotoImage(file=ASSETS_PATH.joinpath("bginfo.png"))
         self.canvasbginfo.create_image(0, 0, anchor=NW, image=self.bginfo)
         
@@ -712,15 +712,18 @@ class Seriespage(tk.Frame):
         
         
         
-        
         self.after(500, self.updateseries)
     def updateseries(self):
-        print(serverseries.current_series)
         self.seriesname.config(text=serverseries.series[serverseries.current_series].series_name)
         self.author.config(text="ผู้แต่ง \t" + serverseries.series[serverseries.current_series].author)
         self.release.config(text="วันที่เผยแพร่ \t" + serverseries.book_catalog_list[serverseries.current_series].releae_date)
         self.tag.config(text="Tag \t" + serverseries.book_catalog_list[serverseries.current_series].tag)
         self.seriestype.config(text="รูปแบบ \t" + serverseries.book_catalog_list[serverseries.current_series].type)
+        
+        new_banner = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.book_catalog_list[serverseries.current_series].img))
+        self.canvasbanner.itemconfig(self.canvas_image, image=new_banner)
+        self.seriesbanner = new_banner
+        
         new_detail = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.series[serverseries.current_series].detail_series))
         self.canvasdetail.itemconfig(self.canvasdetail_image, image=new_detail)
         self.detail = new_detail

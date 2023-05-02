@@ -78,9 +78,9 @@ class Seriessystem:
 # runing
 server = System()
 serverseries = Seriessystem()
-serverseries.read_series_data("backend/series.csv")
-serverseries.read_book_catalog_data("backend/book_catalog.csv")
-serverseries.read_book_data("backend/book.csv")
+serverseries.read_series_data("backend/data/series.csv")
+serverseries.read_book_catalog_data("backend/data/book_catalog.csv")
+serverseries.read_book_data("backend/data/book.csv")
 
 Guest = Customer("Guest", "1234", "Guest", "email", "phone", "address")
 nut = Customer("nut", "1234", "nut", "email", "phone", "address")
@@ -126,23 +126,3 @@ print(serverseries.series[0].detail_series)
 
 # print(serverseries.series[0].book_catalog_obj.type)
 # print(serverseries.series[0].book_catalog_obj.catalog_book_list[0].img)
-
-
-# catalog = Book_catalog("Catalog A", "Fiction", "Tag A", "img_A.jpg", "2022-01-01")
-# book_1 = Book("Book 1", "001", "Details of Book 1", "Fiction", 10.0, "book_1.jpg", "2022-01-01", 100)
-# book_2 = Book("Book 2", "002", "Details of Book 2", "Fiction", 12.5, "book_2.jpg", "2022-02-01", 50)
-# catalog.catalog_book_list = [book_1, book_2]
-
-# # แปลงข้อมูลเป็นรูปแบบของ list ก่อนเขียนลงในไฟล์ CSV
-# rows = []
-# rows.append(["catalog_name", "type", "tag", "img", "release_date", "book_name", "book_id", "detail_in_book", "type", "price", "img", "release_date", "number_of_product"])
-# for book in catalog.catalog_book_list:
-#     rows.append([
-#         catalog.catalog_name, catalog.type, catalog.tag, catalog.img, catalog.releae_date,
-#         book.book_name, book.book_id, book.detail_in_book, book.type, book.price, book.img, book.releae_date, book.number_of_product
-#     ])
-
-# # เขียนข้อมูลลงในไฟล์ CSV
-# with open("book.csv", "w", newline="") as csvfile:
-#     writer = csv.writer(csvfile)
-#     writer.writerows(rows)
