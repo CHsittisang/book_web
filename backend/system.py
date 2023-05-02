@@ -92,6 +92,7 @@ System.add_customer(server , nut1)
 
 
 
+
 # Book_suzume = Book("Suzume no Tojimari \n(LN)", "1", "detail", "LN", 315, "Suzumeimg1.png", "	2022", 10)
 # Suzume_LN= Book_catalog("Suzume_LN", "Light Novel", "Drama , Fantasy", "Suzumebanner.png", "2020-01-01")
 # Suzume_LN.catalog_book_list.append(Book_suzume)
