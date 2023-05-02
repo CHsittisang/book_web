@@ -376,7 +376,6 @@ class Cartpage(tk.Frame):
         self.canvas = Canvas(self, bg="#82C9FF", height=1000, width=811, bd=0, highlightthickness=0, relief="ridge")
         self.canvas.place(x=1030, y=110)
  
-
 class MangaPage(tk.Frame):
     
     def __init__(self, parent, controller):
@@ -442,11 +441,12 @@ class NovelPage(tk.Frame):
         self.button_bookstore = Button(self, image=self.button_bookstore_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
         self.button_bookstore.place(x=22.0, y=30.0, width=218.0, height=54.0)
         
-        self.book1_image = PhotoImage(file=ASSETS_PATH.joinpath("book1.png"))
-        self.book1 = Button(self, image=self.book1_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
-        self.book1.place(x=187.0, y=227.0, width=148.0, height=210.0)
+        self.book1_image = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.book_list[0].img))
+        self.book1_resize = self.book1_image.subsample(2)
+        self.book1 = Button(self, image=self.book1_resize,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
+        self.book1.place(x=187.0, y=227.0, width=150.0, height=210.0)
         
-        self.label_book1 = Label(self, text="Buta Koshaku ni Tensei Shitakara \nเล่ม 1 (LN)", fg="Black", font=("Inter", 10))
+        self.label_book1 = Label(self, text=serverseries.book_list[0].book_name, fg="Black", font=("Inter", 10))
         self.label_book1.place(x=150.0, y=455.0, width=230.0, height=30.0)
         
         self.book1button_image = PhotoImage(file=ASSETS_PATH.joinpath("button_money250.png"))
@@ -454,11 +454,12 @@ class NovelPage(tk.Frame):
         self.book1button.place(x=150.0, y=500.0, width=230.0, height=30.0)
         
         ############################################################
-        self.book2_image = PhotoImage(file=ASSETS_PATH.joinpath("book2.png"))
-        self.book2 = Button(self, image=self.book2_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
+        self.book2_image = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.book_list[1].img))
+        self.book2_resize = self.book2_image.subsample(2)
+        self.book2 = Button(self, image=self.book2_resize,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
         self.book2.place(x=487.0, y=227.0, width=148.0, height=210.0)
         
-        self.label_book2 = Label(self, text="Buta Koshaku ni Tensei Shitakara \nเล่ม 2 (LN)", fg="Black", font=("Inter", 10))
+        self.label_book2 = Label(self, text=serverseries.book_list[1].book_name, fg="Black", font=("Inter", 10))
         self.label_book2.place(x=450.0, y=455.0, width=230.0, height=30.0)
         
         self.book2button_image = PhotoImage(file=ASSETS_PATH.joinpath("button_money250.png"))
@@ -466,11 +467,12 @@ class NovelPage(tk.Frame):
         self.book2button.place(x=450.0, y=500.0, width=230.0, height=30.0)
         
         ############################################################
-        self.book3_image = PhotoImage(file=ASSETS_PATH.joinpath("book3.png"))
-        self.book3 = Button(self, image=self.book3_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
+        self.book3_image = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.book_list[2].img))
+        self.book3_resize = self.book3_image.subsample(2)
+        self.book3 = Button(self, image=self.book3_resize,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
         self.book3.place(x=787.0, y=227.0, width=148.0, height=210.0)
         
-        self.label_book3 = Label(self, text="Buta Koshaku ni Tensei Shitakara \nเล่ม 3 (LN)", fg="Black", font=("Inter", 10))
+        self.label_book3 = Label(self, text=serverseries.book_list[2].book_name, fg="Black", font=("Inter", 10))
         self.label_book3.place(x=750.0, y=455.0, width=230.0, height=30.0)
         
         self.book3button_image = PhotoImage(file=ASSETS_PATH.joinpath("button_money250.png"))
@@ -478,11 +480,12 @@ class NovelPage(tk.Frame):
         self.book3button.place(x=750.0, y=500.0, width=230.0, height=30.0)
         
         ############################################################
-        self.book4_image = PhotoImage(file=ASSETS_PATH.joinpath("book4.png"))
-        self.book4 = Button(self, image=self.book4_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
+        self.book4_image = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.book_list[3].img))
+        self.book4_resize = self.book4_image.subsample(2)
+        self.book4 = Button(self, image=self.book4_resize,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
         self.book4.place(x=1087.0, y=227.0, width=148.0, height=210.0)
         
-        self.label_book4 = Label(self, text="Buta Koshaku ni Tensei Shitakara \nเล่ม 4 (LN)", fg="Black", font=("Inter", 10))
+        self.label_book4 = Label(self, text=serverseries.book_list[3].book_name, fg="Black", font=("Inter", 10))
         self.label_book4.place(x=1050.0, y=455.0, width=230.0, height=30.0)
         
         self.book4button_image = PhotoImage(file=ASSETS_PATH.joinpath("button_money250.png"))
@@ -491,11 +494,12 @@ class NovelPage(tk.Frame):
         
         ############################################################
         
-        self.book5_image = PhotoImage(file=ASSETS_PATH.joinpath("book5.png"))
-        self.book5 = Button(self, image=self.book5_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
+        self.book5_image = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.book_list[4].img))
+        self.book5_resize = self.book5_image.subsample(2)
+        self.book5 = Button(self, image=self.book5_resize,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
         self.book5.place(x=187.0, y=557.0, width=148.0, height=210.0)
         
-        self.label_book5 = Label(self, text="Buta Koshaku ni Tensei Shitakara \nเล่ม 5 (LN)", fg="Black", font=("Inter", 10))
+        self.label_book5 = Label(self, text=serverseries.book_list[4].book_name, fg="Black", font=("Inter", 10))
         self.label_book5.place(x=150.0, y=785.0, width=230.0, height=30.0)
         
         self.book5button_image = PhotoImage(file=ASSETS_PATH.joinpath("button_money250.png"))
@@ -504,11 +508,12 @@ class NovelPage(tk.Frame):
         
         ############################################################
         
-        self.book6_image = PhotoImage(file=ASSETS_PATH.joinpath("book6.png"))
-        self.book6 = Button(self, image=self.book6_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
+        self.book6_image = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.book_list[5].img))
+        self.book6_resize = self.book6_image.subsample(2)
+        self.book6 = Button(self, image=self.book6_resize,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
         self.book6.place(x=487.0, y=557.0, width=148.0, height=210.0)
         
-        self.label_book6 = Label(self, text="Buta Koshaku ni Tensei Shitakara \nเล่ม 6 (LN)", fg="Black", font=("Inter", 10))
+        self.label_book6 = Label(self, text=serverseries.book_list[5].book_name, fg="Black", font=("Inter", 10))
         self.label_book6.place(x=450.0, y=785.0, width=230.0, height=30.0)
         
         self.book6button_image = PhotoImage(file=ASSETS_PATH.joinpath("button_money250.png"))
@@ -517,30 +522,6 @@ class NovelPage(tk.Frame):
         
         ############################################################
         
-        self.book7_image = PhotoImage(file=ASSETS_PATH.joinpath("book7.png"))
-        self.book7 = Button(self, image=self.book7_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
-        self.book7.place(x=787.0, y=557.0, width=148.0, height=210.0)
-        
-        self.label_book7 = Label(self, text="Buta Koshaku ni Tensei Shitakara \nเล่ม 7 (LN)", fg="Black", font=("Inter", 10))
-        self.label_book7.place(x=750.0, y=785.0, width=230.0, height=30.0)
-        
-        self.book7button_image = PhotoImage(file=ASSETS_PATH.joinpath("button_money250.png"))
-        self.book7button = Button(self, image=self.book7button_image,borderwidth=0,highlightthickness=0,relief="flat")
-        self.book7button.place(x=750.0, y=830.0, width=230.0, height=30.0)
-        
-        ############################################################
-        
-        self.book8_image = PhotoImage(file=ASSETS_PATH.joinpath("book8.png"))
-        self.book8 = Button(self, image=self.book8_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
-        self.book8.place(x=1087.0, y=557.0, width=148.0, height=210.0)
-        
-        self.label_book8 = Label(self, text="Buta Koshaku ni Tensei Shitakara \nเล่ม 8 (LN)", fg="Black", font=("Inter", 10))
-        self.label_book8.place(x=1050.0, y=785.0, width=230.0, height=30.0)
-        
-        self.book8button_image = PhotoImage(file=ASSETS_PATH.joinpath("button_money250.png"))
-        self.book8button = Button(self, image=self.book8button_image,borderwidth=0,highlightthickness=0,relief="flat")
-        self.book8button.place(x=1050.0, y=830.0, width=230.0, height=30.0)
-  
 
 class AccountPage(tk.Frame):
     
@@ -687,7 +668,7 @@ class Seriespage(tk.Frame):
         self.canvasbginfo.create_image(0, 0, anchor=NW, image=self.bginfo)
         
         self.imageinfo = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.book_list[0].img))
-        self.canvasbginfo.create_image(154, 20, anchor=N, image=self.imageinfo)
+        self.canvasimageinfo = self.canvasbginfo.create_image(154, 20, anchor=N, image=self.imageinfo)
         
         self.seriesname = Label(self, text=serverseries.series[0].series_name,bg="#FCFCFC" ,fg="#000000",font=("Angsana New", int(16.0)))
         self.seriesname.place(x=1070, y=486, width=300, height=40)
@@ -719,6 +700,10 @@ class Seriespage(tk.Frame):
         self.release.config(text="วันที่เผยแพร่ \t" + serverseries.book_catalog_list[serverseries.current_series].releae_date)
         self.tag.config(text="Tag \t" + serverseries.book_catalog_list[serverseries.current_series].tag)
         self.seriestype.config(text="รูปแบบ \t" + serverseries.book_catalog_list[serverseries.current_series].type)
+        
+        new_imginfo = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.book_list[serverseries.current_series].img))
+        self.canvasbginfo.itemconfig(self.canvasimageinfo, image=new_imginfo)
+        self.imginfo = new_imginfo
         
         new_banner = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.book_catalog_list[serverseries.current_series].img))
         self.canvasbanner.itemconfig(self.canvas_image, image=new_banner)
