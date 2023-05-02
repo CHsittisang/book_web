@@ -18,11 +18,6 @@ class System:
     def add_customerlogin(self, customer: Customer):
         self.customerlogin.append(customer)
         
-    def Logout(self, customer: Customer):
-        self.customerlogin.remove(customer)
-        
-
-
 class Seriessystem:
     current_series = 0
     def __init__(self):
