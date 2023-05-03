@@ -20,9 +20,6 @@ class Customer(Account):
         self.address = address
         self.status = status
     
-    def view_accountinfo(self):
-        pass
-    
 
     
     
