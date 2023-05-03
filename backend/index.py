@@ -377,39 +377,27 @@ class Cartpage(tk.Frame):
         self.button_bookstore = Button(self, image=self.button_bookstore_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
         self.button_bookstore.place(x=22.0, y=30.0, width=218.0, height=54.0)
         
-        self.canvascart = Canvas(self, bg="#82C9FF", height=1000, width=811, bd=0, highlightthickness=0, relief="ridge")
-        self.canvascart.place(x=1030, y=110)
-        
+        self.canvascart = Canvas(self, bg="#82C9FF", height=703, width=1440, bd=0, highlightthickness=0, relief="ridge")
+        self.canvascart.place(x=0, y=163)
         
         self.button_refresh_image = PhotoImage(file=ASSETS_PATH.joinpath("Refreshbutton.png"))
         self.button_refresh = Button(self, image=self.button_refresh_image,borderwidth=0,highlightthickness=0,relief="flat",command=lambda: self.show_cart())
         self.button_refresh.place(x=1371.0,y=131.0,width=31.0,height=31.0)
-
-        self.button_remove_image = PhotoImage(file=ASSETS_PATH.joinpath("trash.png"))
-        self.button_remove = Button(self, image=self.button_remove_image,borderwidth=0,highlightthickness=0,relief="flat",command=lambda: self.clear_cart())
-        self.button_remove.place(x=1300.0,y=131.0,width=31.0,height=31.0)
         
         
-    def show_cart(self):
-        def represent_item():
-            cart_list = list()
-            for item in cart.product_cart:
-                cart_list.append(item.get_book_info())
-            print("--------------------")
-            print(cart_list)
-            print("--------------------")
-            
-        self.canvascart.delete("all")
-        y = 130
-        for index, object in enumerate(cart.product_cart):
-            tempimg = ImageTk.PhotoImage(Image.open(ASSETS_PATH.joinpath(object.img)).resize((100, 150)))
-            self.image_holder.append(tempimg)
-            self.canvascart.create_rectangle(0, y-80, 811, y+80, fill="#1895F5", outline="")
-            self.canvascart.create_text(210, y-35, text=object.book_name, font=("Angsana New", int(16.0), "bold"), fill="#FFFFFF")
-            self.canvascart.create_text(200, y-5, text="ราคา\t"+ object.price, font=("Angsana New", int(16.0), "bold"), fill="#FFFFFF")
-            self.canvascart.create_image(60, y, image=self.image_holder[index])
-            represent_item()
-            y += 150
+    try:
+        def show_cart(self):
+            self.canvascart.delete("all")
+            y = 130
+            for i in cart.product_cart:
+                self.book_cart_img = PhotoImage(file=ASSETS_PATH.joinpath(i.img))
+                self.book_cart_resize = self.book_cart_img.subsample(3)
+                self.canvascart.create_image(60, y, image=self.book_cart_resize)
+                self.canvascart.create_text(210, y-35, text=i.book_name, font=("Angsana New", int(16.0), "bold"), fill="#FFFFFF")
+                self.canvascart.create_text(200, y-5, text="ราคา\t"+ i.price, font=("Angsana New", int(16.0), "bold"), fill="#FFFFFF")
+                y += 150
+    except print(0):
+        pass
     
     def clear_cart(self):
         cart.product_cart  = []
@@ -661,7 +649,6 @@ class AccountPage(tk.Frame):
                 self.Lable_Phone.config(text="Phone : " + self.TKuser_Phone.get())
                 self.Lable_Address.config(text="Address : " + self.TKuser_Address.get())
         self.after(1000 , self.update)
-            
             
 class Seriespage(tk.Frame):
     
