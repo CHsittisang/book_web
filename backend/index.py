@@ -375,26 +375,50 @@ class Cartpage(tk.Frame):
         self.button_bookstore = Button(self, image=self.button_bookstore_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
         self.button_bookstore.place(x=22.0, y=30.0, width=218.0, height=54.0)
         
-        self.canvascart = Canvas(self, bg="#82C9FF", height=1000, width=811, bd=0, highlightthickness=0, relief="ridge")
-        self.canvascart.place(x=1030, y=110)
-        
+        self.canvascart = Canvas(self, bg="#82C9FF", height=703, width=1440, bd=0, highlightthickness=0, relief="ridge")
+        self.canvascart.place(x=0, y=163)
         
         self.button_refresh_image = PhotoImage(file=ASSETS_PATH.joinpath("Refreshbutton.png"))
-        self.button_refresh = Button(self, image=self.button_refresh_image,borderwidth=0,highlightthickness=0,relief="flat",command=lambda: self.show_cart())
-        self.button_refresh.place(x=1371.0,y=131.0,width=31.0,height=31.0)
+        self.button_refresh = Button(self, image=self.button_refresh_image,borderwidth=0,highlightthickness=0,relief="flat",command=self.show_cart)
+        self.button_refresh.place(x=1371.0,y=180.0,width=31.0,height=31.0)
+        
+        # self.label_cart = Label(self, text="รายการสินค้าในตระกล้า",bg="#82C9FF" ,fg="#000000", font=("Angsana New", 20))
+        # self.label_cart.place(x=22, y=180)
+        
+        self.canvascart.create_text(100, 30, text="รายการสินค้าในตระกล้า", fill="#000000", font=("Angsana New", 20))
+        self.canvascart.create_text(900, 30, text="ข้อมูลการสั่งซื้อ", fill="#000000", font=("Angsana New", 20))
+        
+        self.button_cfbuy = Button(self, text="ยืนยันการสั่งซื้อ", bg="#1895F5", fg="white", font=("Angsana New", 10))
+        self.button_cfbuy.place(x=1313, y=811 , width=100, height=50)
+        
+        
+        
         
         
     try:
-        def show_cart(self):
-            self.canvascart.delete("all")
-            y = 130
+       def show_cart(self):
+            y = 250
+            for widget in self.winfo_children():
+                if isinstance(widget, tk.Label):
+                    widget.destroy() # ลบ Label ทั้งหมดออกจากหน้าต่าง
             for i in cart.product_cart:
-                self.book_cart_img = PhotoImage(file=ASSETS_PATH.joinpath(i.img))
-                self.book_cart_resize = self.book_cart_img.subsample(3)
-                self.canvascart.create_image(60, y, image=self.book_cart_resize)
-                self.canvascart.create_text(210, y-35, text=i.book_name, font=("Angsana New", int(16.0), "bold"), fill="#FFFFFF")
-                self.canvascart.create_text(200, y-5, text="ราคา\t"+ i.price, font=("Angsana New", int(16.0), "bold"), fill="#FFFFFF")
-                y += 150
+                self.itemcartname = Label(self, text=i.book_name, bg="#82C9FF" ,fg="#000000", font=("Angsana New", 20))
+                self.itemcartname.place(x=40, y=y)
+                self.itemcartprice = Label(self, text=f"{i.price} บาท", bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
+                self.itemcartprice.place(x=600  , y=y)
+                sumprice =cart.get_cart_list_price()
+                y += 30
+            self.itemcartsumprice = Label(self, text=f"ราคารวม {sumprice:.2f} บาท", bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
+            self.itemcartsumprice.place(x=40  , y=y+30)
+            self.infoshipment1 = Label(self, text=f"ชื่อผู้รับ \t: {server.customerlogin[0].name}" , bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
+            self.infoshipment1.place(x=880  , y=250)
+            self.infoshipment2 = Label(self, text=f"เบอร์โทร \t: {server.customerlogin[0].phone}" , bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
+            self.infoshipment2.place(x=880  , y=280)
+            self.infoshipment3 = Label(self, text=f"อีเมล \t: {server.customerlogin[0].email}" , bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
+            self.infoshipment3.place(x=880  , y=310)
+            self.infoshipment4 = Label(self, text=f"ที่อยู่ \t: {server.customerlogin[0].address}" , bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
+            self.infoshipment4.place(x=880  , y=340)
+
     except print(0):
         pass
     
@@ -640,7 +664,6 @@ class AccountPage(tk.Frame):
                 self.Lable_Phone.config(text="Phone : " + self.TKuser_Phone.get())
                 self.Lable_Address.config(text="Address : " + self.TKuser_Address.get())
         self.after(1000 , self.update)
-            
             
 class Seriespage(tk.Frame):
     
