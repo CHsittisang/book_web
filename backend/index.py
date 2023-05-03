@@ -6,8 +6,6 @@ from tkinter import messagebox as msg
 import tkinter as tk
 from system import *
 from account import *
-from cart import *
-import tkinter.ttk as ttk
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = Path("backend/src/img")
@@ -375,30 +373,8 @@ class Cartpage(tk.Frame):
         self.button_bookstore = Button(self, image=self.button_bookstore_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
         self.button_bookstore.place(x=22.0, y=30.0, width=218.0, height=54.0)
         
-        self.canvascart = Canvas(self, bg="#82C9FF", height=1000, width=811, bd=0, highlightthickness=0, relief="ridge")
-        self.canvascart.place(x=1030, y=110)
-        
-        
-        self.button_refresh_image = PhotoImage(file=ASSETS_PATH.joinpath("Refreshbutton.png"))
-        self.button_refresh = Button(self, image=self.button_refresh_image,borderwidth=0,highlightthickness=0,relief="flat",command=lambda: self.show_cart())
-        self.button_refresh.place(x=1371.0,y=131.0,width=31.0,height=31.0)
-        
-        
-    try:
-        def show_cart(self):
-            self.canvascart.delete("all")
-            y = 130
-            for i in cart.product_cart:
-                self.book_cart_img = PhotoImage(file=ASSETS_PATH.joinpath(i.img))
-                self.book_cart_resize = self.book_cart_img.subsample(3)
-                self.canvascart.create_image(60, y, image=self.book_cart_resize)
-                self.canvascart.create_text(210, y-35, text=i.book_name, font=("Angsana New", int(16.0), "bold"), fill="#FFFFFF")
-                self.canvascart.create_text(200, y-5, text="ราคา\t"+ i.price, font=("Angsana New", int(16.0), "bold"), fill="#FFFFFF")
-                y += 150
-    except print(0):
-        pass
-    
-        
+        self.canvas = Canvas(self, bg="#82C9FF", height=1000, width=811, bd=0, highlightthickness=0, relief="ridge")
+        self.canvas.place(x=1030, y=110)
  
 class MangaPage(tk.Frame):
     
@@ -440,10 +416,10 @@ class NovelPage(tk.Frame):
         self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
         self.canvas.pack()
         
+        
         self.button_account_image = PhotoImage(file=ASSETS_PATH.joinpath("button_account.png"))
         self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(AccountPage) if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
         self.button_account.place(x=1207.0,y=30.0,width=56.0,height=56.0)
-        
         
         self.button_manga_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_manga.png"))
@@ -472,9 +448,10 @@ class NovelPage(tk.Frame):
         
         self.label_book1 = Label(self, text=serverseries.book_list[0].book_name, fg="Black", font=("Inter", 10))
         self.label_book1.place(x=150.0, y=455.0, width=230.0, height=30.0)
-          
-        self.button_buy1 = Button(self, text=serverseries.book_list[0].price, bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[0]))
-        self.button_buy1.place(x=150 , y=500 , width=230 , height=30)
+        
+        self.book1button_image = PhotoImage(file=ASSETS_PATH.joinpath("button_money250.png"))
+        self.book1button = Button(self, image=self.book1button_image,borderwidth=0,highlightthickness=0,relief="flat")
+        self.book1button.place(x=150.0, y=500.0, width=230.0, height=30.0)
         
         ############################################################
         self.book2_image = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.book_list[1].img))
@@ -485,8 +462,9 @@ class NovelPage(tk.Frame):
         self.label_book2 = Label(self, text=serverseries.book_list[1].book_name, fg="Black", font=("Inter", 10))
         self.label_book2.place(x=450.0, y=455.0, width=230.0, height=30.0)
         
-        self.button_buy2 = Button(self, text=serverseries.book_list[1].price, bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[1]))
-        self.button_buy2.place(x=450 , y=500 , width=230 , height=30)
+        self.book2button_image = PhotoImage(file=ASSETS_PATH.joinpath("button_money250.png"))
+        self.book2button = Button(self, image=self.book2button_image,borderwidth=0,highlightthickness=0,relief="flat")
+        self.book2button.place(x=450.0, y=500.0, width=230.0, height=30.0)
         
         ############################################################
         self.book3_image = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.book_list[2].img))
@@ -497,8 +475,9 @@ class NovelPage(tk.Frame):
         self.label_book3 = Label(self, text=serverseries.book_list[2].book_name, fg="Black", font=("Inter", 10))
         self.label_book3.place(x=750.0, y=455.0, width=230.0, height=30.0)
         
-        self.button_buy3 = Button(self, text=serverseries.book_list[1].price, bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[2]))
-        self.button_buy3.place(x=750.0, y=500.0, width=230.0, height=30.0)
+        self.book3button_image = PhotoImage(file=ASSETS_PATH.joinpath("button_money250.png"))
+        self.book3button = Button(self, image=self.book3button_image,borderwidth=0,highlightthickness=0,relief="flat")
+        self.book3button.place(x=750.0, y=500.0, width=230.0, height=30.0)
         
         ############################################################
         self.book4_image = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.book_list[3].img))
@@ -509,8 +488,9 @@ class NovelPage(tk.Frame):
         self.label_book4 = Label(self, text=serverseries.book_list[3].book_name, fg="Black", font=("Inter", 10))
         self.label_book4.place(x=1050.0, y=455.0, width=230.0, height=30.0)
         
-        self.button_buy4 = Button(self, text=serverseries.book_list[1].price, bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[3]))
-        self.button_buy4.place(x=1050.0, y=500.0, width=230.0, height=30.0)
+        self.book4button_image = PhotoImage(file=ASSETS_PATH.joinpath("button_money250.png"))
+        self.book4button = Button(self, image=self.book4button_image,borderwidth=0,highlightthickness=0,relief="flat")
+        self.book4button.place(x=1050.0, y=500.0, width=230.0, height=30.0)
         
         ############################################################
         
@@ -522,8 +502,9 @@ class NovelPage(tk.Frame):
         self.label_book5 = Label(self, text=serverseries.book_list[4].book_name, fg="Black", font=("Inter", 10))
         self.label_book5.place(x=150.0, y=785.0, width=230.0, height=30.0)
         
-        self.button_buy5 = Button(self, text=serverseries.book_list[1].price, bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[4]))
-        self.button_buy5.place(x=150.0, y=830.0, width=230.0, height=30.0)
+        self.book5button_image = PhotoImage(file=ASSETS_PATH.joinpath("button_money250.png"))
+        self.book5button = Button(self, image=self.book5button_image,borderwidth=0,highlightthickness=0,relief="flat")
+        self.book5button.place(x=150.0, y=830.0, width=230.0, height=30.0)
         
         ############################################################
         
@@ -535,8 +516,9 @@ class NovelPage(tk.Frame):
         self.label_book6 = Label(self, text=serverseries.book_list[5].book_name, fg="Black", font=("Inter", 10))
         self.label_book6.place(x=450.0, y=785.0, width=230.0, height=30.0)
         
-        self.button_buy6 = Button(self, text=serverseries.book_list[1].price, bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[5]))
-        self.button_buy6.place(x=450.0, y=830.0, width=230.0, height=30.0)
+        self.book6button_image = PhotoImage(file=ASSETS_PATH.joinpath("button_money250.png"))
+        self.book6button = Button(self, image=self.book6button_image,borderwidth=0,highlightthickness=0,relief="flat")
+        self.book6button.place(x=450.0, y=830.0, width=230.0, height=30.0)
         
         ############################################################
         
@@ -682,7 +664,6 @@ class Seriespage(tk.Frame):
         
         self.canvasbginfo = Canvas(self, bg="#FEFCFF", height=760, width=308, bd=0, highlightthickness=0, relief="ridge")
         self.canvasbginfo.place(x=1064, y=140)
-        
         self.bginfo = PhotoImage(file=ASSETS_PATH.joinpath("bginfo.png"))
         self.canvasbginfo.create_image(0, 0, anchor=NW, image=self.bginfo)
         
@@ -714,7 +695,6 @@ class Seriespage(tk.Frame):
         
         self.after(500, self.updateseries)
     def updateseries(self):
-        print(cart.product_cart)
         self.seriesname.config(text=serverseries.series[serverseries.current_series].series_name)
         self.author.config(text="ผู้แต่ง \t" + serverseries.series[serverseries.current_series].author)
         self.release.config(text="วันที่เผยแพร่ \t" + serverseries.book_catalog_list[serverseries.current_series].releae_date)
