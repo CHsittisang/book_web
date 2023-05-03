@@ -3,6 +3,7 @@ class ShoppingCart:
         self.product_cart = []
 
     def add_to_cart_list(self, item):
+        print("Adding item to cart")
         self.product_cart.append(item)
     
     def get_cart_list(self):
@@ -21,6 +22,7 @@ class ShoppingCart:
         return total
 
 
-    
+cart = ShoppingCart()
+
     
     
