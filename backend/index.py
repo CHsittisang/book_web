@@ -455,7 +455,80 @@ class MangaPage(tk.Frame):
         self.button_bookstore_image = PhotoImage(file=ASSETS_PATH.joinpath("button_Bookstore.png"))
         self.button_bookstore = Button(self, image=self.button_bookstore_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
         self.button_bookstore.place(x=22.0, y=30.0, width=218.0, height=54.0)
-  
+
+        self.bookmg1_image = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.book_list[6].img))
+        self.bookmg1_resize = self.bookmg1_image.subsample(2)
+        self.bookmg1 = Button(self, image=self.bookmg1_resize, borderwidth=0, highlightthickness=0,relief="flat")
+        self.bookmg1.place(x=187.0, y=227.0, width=150.0, height=210.0)
+        
+        self.label_bookmg1 = Label(self, text=f"{serverseries.book_list[6].book_name}", fg="#000000", font=("Inter", 10))
+        self.label_bookmg1.place(x=150.0, y=455.0, width=230.0, height=30.0)
+        
+        self.button_buymg1 = Button(self, text=f"ซื้อ {serverseries.book_list[6].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[6]))
+        self.button_buymg1.place(x=150.0, y=500.0, width=230.0, height=30.0)
+        
+        self.bookmg2_image = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.book_list[7].img))
+        self.bookmg2_resize = self.bookmg2_image.subsample(2)
+        self.bookmg2 = Button(self, image=self.bookmg2_resize, borderwidth=0, highlightthickness=0,relief="flat")
+        self.bookmg2.place(x=487.0, y=227.0, width=150.0, height=210.0)
+        self.label_bookmg2 = Label(self, text=f"{serverseries.book_list[7].book_name}", fg="#000000", font=("Inter", 10))
+        self.label_bookmg2.place(x=450.0, y=455.0, width=230.0, height=30.0)
+        self.button_buymg2 = Button(self, text=f"ซื้อ {serverseries.book_list[7].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[7]))
+        self.button_buymg2.place(x=450.0, y=500.0, width=230.0, height=30.0)
+        
+        self.bookmg3_image = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.book_list[8].img))
+        self.bookmg3_resize = self.bookmg3_image.subsample(2)
+        self.bookmg3 = Button(self, image=self.bookmg3_resize, borderwidth=0, highlightthickness=0,relief="flat")
+        self.bookmg3.place(x=787.0, y=227.0, width=150.0, height=210.0)
+        self.label_bookmg3 = Label(self, text=f"{serverseries.book_list[8].book_name}", fg="#000000", font=("Inter", 10))
+        self.label_bookmg3.place(x=750.0, y=455.0, width=230.0, height=30.0)
+        self.button_buymg3 = Button(self, text=f"ซื้อ {serverseries.book_list[8].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[8]))
+        self.button_buymg3.place(x=750.0, y=500.0, width=230.0, height=30.0)
+        
+        self.bookmg4_image = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.book_list[9].img))
+        self.bookmg4_resize = self.bookmg4_image.subsample(2)
+        self.bookmg4 = Button(self, image=self.bookmg4_resize, borderwidth=0, highlightthickness=0,relief="flat")
+        self.bookmg4.place(x=1087.0, y=227.0, width=150.0, height=210.0)
+        self.label_bookmg4 = Label(self, text=f"{serverseries.book_list[9].book_name}", fg="#000000", font=("Inter", 10))
+        self.label_bookmg4.place(x=1050.0, y=455.0, width=230.0, height=30.0)
+        self.button_buymg4 = Button(self, text=f"ซื้อ {serverseries.book_list[9].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[9]))
+        self.button_buymg4.place(x=1050.0, y=500.0, width=230.0, height=30.0)
+        
+        self.bookmg5_image = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.book_list[10].img))
+        self.bookmg5_resize = self.bookmg5_image.subsample(2)
+        self.bookmg5 = Button(self, image=self.bookmg5_resize, borderwidth=0, highlightthickness=0,relief="flat")
+        self.bookmg5.place(x=187.0, y=557.0, width=150.0, height=210.0)
+        self.label_bookmg5 = Label(self, text=f"{serverseries.book_list[10].book_name}", fg="#000000", font=("Inter", 10))
+        self.label_bookmg5.place(x=150.0, y=785.0, width=230.0, height=30.0)
+        self.button_buymg5 = Button(self, text=f"ซื้อ {serverseries.book_list[10].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[10]))
+        self.button_buymg5.place(x=150.0, y=830.0, width=230.0, height=30.0)
+        
+        self.bookmg6_image = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.book_list[11].img))
+        self.bookmg6_resize = self.bookmg6_image.subsample(2)
+        self.bookmg6 = Button(self, image=self.bookmg6_resize, borderwidth=0, highlightthickness=0,relief="flat")
+        self.bookmg6.place(x=487.0, y=557.0, width=150.0, height=210.0)
+        self.label_bookmg6 = Label(self, text=f"{serverseries.book_list[11].book_name}", fg="#000000", font=("Inter", 10))
+        self.label_bookmg6.place(x=450.0, y=785.0, width=230.0, height=30.0)
+        self.button_buymg6 = Button(self, text=f"ซื้อ {serverseries.book_list[11].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[11]))
+        self.button_buymg6.place(x=450.0, y=830.0, width=230.0, height=30.0)
+        
+        self.bookmg7_image = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.book_list[12].img))
+        self.bookmg7_resize = self.bookmg7_image.subsample(2)
+        self.bookmg7 = Button(self, image=self.bookmg7_resize, borderwidth=0, highlightthickness=0,relief="flat")
+        self.bookmg7.place(x=787.0, y=557.0, width=150.0, height=210.0)
+        self.label_bookmg7 = Label(self, text=f"{serverseries.book_list[12].book_name}", fg="#000000", font=("Inter", 10))
+        self.label_bookmg7.place(x=750.0, y=785.0, width=230.0, height=30.0)
+        self.button_buymg7 = Button(self, text=f"ซื้อ {serverseries.book_list[12].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[12]))
+        self.button_buymg7.place(x=750.0, y=830.0, width=230.0, height=30.0)
+        
+        self.bookmg8_image = PhotoImage(file=ASSETS_PATH.joinpath(serverseries.book_list[13].img))
+        self.bookmg8_resize = self.bookmg8_image.subsample(2)
+        self.bookmg8 = Button(self, image=self.bookmg8_resize, borderwidth=0, highlightthickness=0,relief="flat")
+        self.bookmg8.place(x=1087.0, y=557.0, width=150.0, height=210.0)
+        self.label_bookmg8 = Label(self, text=f"{serverseries.book_list[13].book_name}", fg="#000000", font=("Inter", 10))
+        self.label_bookmg8.place(x=1050.0, y=785.0, width=230.0, height=30.0)
+        self.button_buymg8 = Button(self, text=f"ซื้อ {serverseries.book_list[13].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[13]))
+        self.button_buymg8.place(x=1050.0, y=830.0, width=230.0, height=30.0)
 
 class NovelPage(tk.Frame):
     
@@ -497,7 +570,7 @@ class NovelPage(tk.Frame):
         self.label_book1 = Label(self, text=serverseries.book_list[0].book_name, fg="Black", font=("Inter", 10))
         self.label_book1.place(x=150.0, y=455.0, width=230.0, height=30.0)
           
-        self.button_buy1 = Button(self, text=serverseries.book_list[0].price, bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[0]))
+        self.button_buy1 = Button(self, text=f"ซื้อ {serverseries.book_list[0].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[0]))
         self.button_buy1.place(x=150 , y=500 , width=230 , height=30)
         
         ############################################################
@@ -509,7 +582,7 @@ class NovelPage(tk.Frame):
         self.label_book2 = Label(self, text=serverseries.book_list[1].book_name, fg="Black", font=("Inter", 10))
         self.label_book2.place(x=450.0, y=455.0, width=230.0, height=30.0)
         
-        self.button_buy2 = Button(self, text=serverseries.book_list[1].price, bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[1]))
+        self.button_buy2 = Button(self, text=f"ซื้อ {serverseries.book_list[1].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[1]))
         self.button_buy2.place(x=450 , y=500 , width=230 , height=30)
         
         ############################################################
@@ -521,7 +594,7 @@ class NovelPage(tk.Frame):
         self.label_book3 = Label(self, text=serverseries.book_list[2].book_name, fg="Black", font=("Inter", 10))
         self.label_book3.place(x=750.0, y=455.0, width=230.0, height=30.0)
         
-        self.button_buy3 = Button(self, text=serverseries.book_list[1].price, bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[2]))
+        self.button_buy3 = Button(self, text=f"ซื้อ {serverseries.book_list[2].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[2]))
         self.button_buy3.place(x=750.0, y=500.0, width=230.0, height=30.0)
         
         ############################################################
@@ -533,7 +606,7 @@ class NovelPage(tk.Frame):
         self.label_book4 = Label(self, text=serverseries.book_list[3].book_name, fg="Black", font=("Inter", 10))
         self.label_book4.place(x=1050.0, y=455.0, width=230.0, height=30.0)
         
-        self.button_buy4 = Button(self, text=serverseries.book_list[1].price, bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[3]))
+        self.button_buy4 = Button(self, text=f"ซื้อ {serverseries.book_list[3].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[3]))
         self.button_buy4.place(x=1050.0, y=500.0, width=230.0, height=30.0)
         
         ############################################################
@@ -546,7 +619,7 @@ class NovelPage(tk.Frame):
         self.label_book5 = Label(self, text=serverseries.book_list[4].book_name, fg="Black", font=("Inter", 10))
         self.label_book5.place(x=150.0, y=785.0, width=230.0, height=30.0)
         
-        self.button_buy5 = Button(self, text=serverseries.book_list[1].price, bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[4]))
+        self.button_buy5 = Button(self, text=f"ซื้อ {serverseries.book_list[4].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[4]))
         self.button_buy5.place(x=150.0, y=830.0, width=230.0, height=30.0)
         
         ############################################################
@@ -559,7 +632,7 @@ class NovelPage(tk.Frame):
         self.label_book6 = Label(self, text=serverseries.book_list[5].book_name, fg="Black", font=("Inter", 10))
         self.label_book6.place(x=450.0, y=785.0, width=230.0, height=30.0)
         
-        self.button_buy6 = Button(self, text=serverseries.book_list[1].price, bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[5]))
+        self.button_buy6 = Button(self, text=f"ซื้อ {serverseries.book_list[5].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[5]))
         self.button_buy6.place(x=450.0, y=830.0, width=230.0, height=30.0)
         
         ############################################################
@@ -652,7 +725,7 @@ class AccountPage(tk.Frame):
                 self.name = server.customerlogin[0].name
                 self.email = server.customerlogin[0].email
                 self.phone = server.customerlogin[0].phone
-                self.address = server.customerlogin[0].address
+                self.address = server.customerlogin[0].address  
                 self.TKuser_Id.set(self.id)
                 self.Tkuser_Name.set(self.name)
                 self.TKuser_Email.set(self.email)
