@@ -391,14 +391,24 @@ class Cartpage(tk.Frame):
         
         
     def show_cart(self):
+        def represent_item():
+            cart_list = list()
+            for item in cart.product_cart:
+                cart_list.append(item.get_book_info())
+            print("--------------------")
+            print(cart_list)
+            print("--------------------")
+            
         self.canvascart.delete("all")
         y = 130
         for index, object in enumerate(cart.product_cart):
             tempimg = ImageTk.PhotoImage(Image.open(ASSETS_PATH.joinpath(object.img)).resize((100, 150)))
             self.image_holder.append(tempimg)
-            self.canvascart.create_image(60, y, image=self.image_holder[index])
+            self.canvascart.create_rectangle(0, y-80, 811, y+80, fill="#1895F5", outline="")
             self.canvascart.create_text(210, y-35, text=object.book_name, font=("Angsana New", int(16.0), "bold"), fill="#FFFFFF")
             self.canvascart.create_text(200, y-5, text="ราคา\t"+ object.price, font=("Angsana New", int(16.0), "bold"), fill="#FFFFFF")
+            self.canvascart.create_image(60, y, image=self.image_holder[index])
+            represent_item()
             y += 150
     
     def clear_cart(self):
@@ -725,7 +735,7 @@ class Seriespage(tk.Frame):
         
         self.after(500, self.updateseries)
     def updateseries(self):
-        print(cart.product_cart)
+        # print(cart.product_cart)
         self.seriesname.config(text=serverseries.series[serverseries.current_series].series_name)
         self.author.config(text="ผู้แต่ง \t" + serverseries.series[serverseries.current_series].author)
         self.release.config(text="วันที่เผยแพร่ \t" + serverseries.book_catalog_list[serverseries.current_series].releae_date)

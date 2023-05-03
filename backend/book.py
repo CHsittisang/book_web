@@ -26,5 +26,11 @@ class Book:
         self.img = img
         self.releae_date = releae_date
         self.number_of_product = number_of_product
+    
+    def get_book_info(self):
+        return self.book_id, self.book_name, self.img
+    
+    def __str__(self) -> str:
+        return f"{self.book_name} {self.book_id} {self.detail_in_book} {self.type} {self.price} {self.img} {self.releae_date} {self.number_of_product}"
 
    
