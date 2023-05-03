@@ -594,7 +594,7 @@ class NovelPage(tk.Frame):
         self.label_book3 = Label(self, text=serverseries.book_list[2].book_name, fg="Black", font=("Inter", 10))
         self.label_book3.place(x=750.0, y=455.0, width=230.0, height=30.0)
         
-        self.button_buy3 = Button(self, text=f"ซื้อ {serverseries.book_list[2].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[2]))
+        self.button_buy3 = Button(self, text=f"ซื้อ {serverseries.book_list[1].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[2]))
         self.button_buy3.place(x=750.0, y=500.0, width=230.0, height=30.0)
         
         ############################################################
@@ -606,7 +606,7 @@ class NovelPage(tk.Frame):
         self.label_book4 = Label(self, text=serverseries.book_list[3].book_name, fg="Black", font=("Inter", 10))
         self.label_book4.place(x=1050.0, y=455.0, width=230.0, height=30.0)
         
-        self.button_buy4 = Button(self, text=f"ซื้อ {serverseries.book_list[3].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[3]))
+        self.button_buy4 = Button(self, text=f"ซื้อ {serverseries.book_list[1].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[3]))
         self.button_buy4.place(x=1050.0, y=500.0, width=230.0, height=30.0)
         
         ############################################################
@@ -619,7 +619,7 @@ class NovelPage(tk.Frame):
         self.label_book5 = Label(self, text=serverseries.book_list[4].book_name, fg="Black", font=("Inter", 10))
         self.label_book5.place(x=150.0, y=785.0, width=230.0, height=30.0)
         
-        self.button_buy5 = Button(self, text=f"ซื้อ {serverseries.book_list[4].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[4]))
+        self.button_buy5 = Button(self, text=f"ซื้อ {serverseries.book_list[1].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[4]))
         self.button_buy5.place(x=150.0, y=830.0, width=230.0, height=30.0)
         
         ############################################################
@@ -632,7 +632,7 @@ class NovelPage(tk.Frame):
         self.label_book6 = Label(self, text=serverseries.book_list[5].book_name, fg="Black", font=("Inter", 10))
         self.label_book6.place(x=450.0, y=785.0, width=230.0, height=30.0)
         
-        self.button_buy6 = Button(self, text=f"ซื้อ {serverseries.book_list[5].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[5]))
+        self.button_buy6 = Button(self, text=f"ซื้อ {serverseries.book_list[1].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[5]))
         self.button_buy6.place(x=450.0, y=830.0, width=230.0, height=30.0)
         
         ############################################################
