@@ -12,7 +12,7 @@ class ShoppingCart:
     def get_cart_list_price(self):
         total = 0
         for i in self.product_cart:
-            total += i.price
+            total += int(i.price)
         return total
     
     def get_cart_list_quantity(self):
