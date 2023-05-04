@@ -18,6 +18,9 @@ class System:
     
     def add_customerlogin(self, customer: Customer):
         self.customerlogin.append(customer)
+    
+    def add_order_to_history(self, order):
+            self.order_history_list.append(order)
         
 class Seriessystem:
     current_series = 0
@@ -99,3 +102,4 @@ print(serverseries.book_list[0].img)
 print(serverseries.series[0].detail_series)
 print(serverseries.book_list[0].img)
 
+print(server.customer[0].order_history_list)

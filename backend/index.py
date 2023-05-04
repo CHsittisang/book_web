@@ -6,7 +6,7 @@ from tkinter import messagebox as msg
 import tkinter as tk
 from system import *
 from account import *
-from cart import *
+from ordercart import *
 from payment import *
 import tkinter.ttk as ttk
 from order import *
@@ -390,9 +390,6 @@ class Cartpage(tk.Frame):
         self.canvascart.create_text(900, 30, text="ข้อมูลการสั่งซื้อ", fill="#000000", font=("Angsana New", 20))
         
         
-        self.button_cfbuy = Button(self, text="ยืนยันการสั่งซื้อ", bg="#1895F5", fg="white", font=("Angsana New", 10), command= self.check_Paymentprompay)
-        self.button_cfbuy.place(x=1313, y=811 , width=100, height=50)
-        
         self.button_PrompPay = Button(self, text="PrompPay", bg="#1895F5", fg="white", font=("Angsana New", 10), command=self.show_Paymentprompay)
         self.button_PrompPay.place(x=880, y=400 , width=100, height=30)
         
@@ -451,6 +448,7 @@ class Cartpage(tk.Frame):
             self.entry_creditcarddate.destroy()
             self.label_codecredit.destroy()
             self.entry_codecredit.destroy()
+            self.button_confirmbuycredit.destroy()
         except:
             pass
         self.button_CreditCard.configure(state="normal") # ปิดใช้งาน button_CreditCard
@@ -463,8 +461,8 @@ class Cartpage(tk.Frame):
         self.label_codepromppay.place(x=880  , y=550)
         self.entry_codepromppay = Entry(self, bg="#FFFFFF", fg="#000000", font=("Angsana New", 20))
         self.entry_codepromppay.place(x=880  , y=600 , width=250.0, height=35.0)
-        # self.button_comfrim_promppay = Button(self, text="ยืนยัน", bg="#1895F5", fg="white", font=("Angsana New", 10),command=self.check_Paymentprompay)
-        # self.button_comfrim_promppay.place(x=880, y=550 , width=100, height=30)
+        self.button_confirmbuyprompay = Button(self, text="ยืนยันการสั่งซื้อ", bg="#1895F5", fg="white", font=("Angsana New", 10), command= self.check_Paymentprompay)
+        self.button_confirmbuyprompay.place(x=1313, y=811 , width=100, height=50)
 
         
         
@@ -476,6 +474,7 @@ class Cartpage(tk.Frame):
             self.entry_promppay.destroy()
             self.label_codepromppay.destroy()
             self.entry_codepromppay.destroy()
+            self.button_confirmbuyprompay.destroy()
         except:
             pass
         self.button_PrompPay.configure(state="normal")  # ปิดใช้งาน button_PrompPay
@@ -496,6 +495,8 @@ class Cartpage(tk.Frame):
         self.label_codecredit.place(x=880  , y=650)
         self.entry_codecredit = Entry(self, bg="#FFFFFF", fg="#000000", font=("Angsana New", 20))
         self.entry_codecredit.place(x=880  , y=700 , width=250.0, height=35.0)
+        self.button_confirmbuycredit = Button(self, text="ยืนยันการสั่งซื้อ", bg="#1895F5", fg="white", font=("Angsana New", 10), command= self.check_Paymentcreditcard)
+        self.button_confirmbuycredit.place(x=1313, y=811 , width=100, height=50)
         
     def check_Paymentprompay(self):
         prompayget = self.entry_promppay.get()
@@ -507,16 +508,23 @@ class Cartpage(tk.Frame):
         for i in discount.code_list:
             if codediscountget == i.discount_code:
                 sumprice = sumprice - i.balance
-                print(sumprice)
-            else:
-                msg.showerror("Error", "กรุณากรอกข้อมูลให้ถูกต้อง")
-                raise Exception("กรุณากรอกข้อมูลให้ถูกต้อง")
         for i in PrompPay.PrompPay_list:
             if prompayget == i.tel_number:
                 if i.payment_balance >= sumprice:
                     PrompPay.PrompPay_list[PrompPay.PrompPay_list.index(i)].payment_balance -= sumprice
-                    print(i.payment_balance)
                     msg.showinfo("Success", "ชำระเงินสำเร็จ ยอดซื้อของคุณคือ "+str(sumprice)+" บาท")
+                    item = cart.get_cart_list()
+                    server.customerlogin[0].order_history_list.append(Order(1, sumprice, "Complete", item))
+                    cart.clear_cart_list()
+                    self.controller.show_frame(Mainpage)
+                    for widget in self.winfo_children():
+                        if isinstance(widget, tk.Label):
+                            widget.destroy()
+                    self.label_promppay.destroy()
+                    self.entry_promppay.destroy()
+                    self.label_codepromppay.destroy()
+                    self.entry_codepromppay.destroy()
+                    self.button_confirmbuyprompay.destroy()
                 else:
                     msg.showerror("Error", "ชำระเงินไม่สำเร็จยอดเงินของคุณไม่พอเพียงพอ")
             else:
@@ -527,15 +535,35 @@ class Cartpage(tk.Frame):
         creditcardget = self.entry_creditcard.get()
         creditcardcvvget = self.entry_creditcardcvv.get()
         creditcarddateget = self.entry_creditcarddate.get()
+        codediscountget = self.entry_codecredit.get()
         sumprice =cart.get_cart_list_price()
         if creditcardget == "" or creditcardcvvget == "" or creditcarddateget == "":
             msg.showerror("Error", "กรุณากรอกข้อมูลให้ครบถ้วน")
             raise Exception("กรุณากรอกข้อมูลให้ครบถ้วน")
+        for i in discount.code_list:
+            if codediscountget == i.discount_code:
+                sumprice = sumprice - i.balance
         for i in CreditCard.CreditCard_list:
             if creditcardget == i.card_number and creditcardcvvget == i.card_cvv and creditcarddateget == i.card_date:
                 if i.payment_balance >= sumprice:
                     CreditCard.CreditCard_list[CreditCard.CreditCard_list.index(i)].payment_balance -= sumprice
-                    msg.showinfo("Success", "ชำระเงินสำเร็จ")
+                    msg.showinfo("Success", "ชำระเงินสำเร็จ ยอดซื้อของคุณคือ "+str(sumprice)+" บาท")
+                    item = cart.get_cart_list()
+                    server.customerlogin[0].order_history_list.append(Order(1, sumprice, "Complete", item))
+                    cart.clear_cart_list()
+                    self.controller.show_frame(Mainpage)
+                    for widget in self.winfo_children():
+                        if isinstance(widget, tk.Label):
+                            widget.destroy()
+                    self.label_creditcard.destroy()
+                    self.entry_creditcard.destroy()
+                    self.label_creditcardcvv.destroy()
+                    self.entry_creditcardcvv.destroy()
+                    self.label_creditcarddate.destroy()
+                    self.entry_creditcarddate.destroy()
+                    self.label_codecredit.destroy()
+                    self.entry_codecredit.destroy()
+                    self.button_confirmbuycredit.destroy()
                 else:
                     msg.showerror("Error", "ชำระเงินไม่สำเร็จยอดเงินของคุณไม่พอเพียงพอ")
     

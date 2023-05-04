@@ -1,6 +1,7 @@
-class ShoppingCart: 
+class Ordercart: 
     def __init__(self):
         self.product_cart = []
+        
 
     def add_to_cart_list(self, item):
         print("Adding item to cart")
@@ -20,9 +21,14 @@ class ShoppingCart:
         for i in self.product_cart:
             total += i.quantity
         return total
+    
+    def clear_cart_list(self):
+        self.product_cart.clear()
+
+    
 
 
-cart = ShoppingCart()
+cart = Ordercart()
 
     
     
