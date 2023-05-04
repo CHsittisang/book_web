@@ -7,6 +7,7 @@ import tkinter as tk
 from system import *
 from account import *
 from cart import *
+from payment import *
 import tkinter.ttk as ttk
 
 OUTPUT_PATH = Path(__file__).parent
@@ -31,11 +32,11 @@ class Bookstore(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
         self.frames = {}
         
-        for F in {Mainpage, Loginpage, Registerpage, Cartpage ,MangaPage, NovelPage, AccountPage, Seriespage}:
+        for F in {Mainpage, Loginpage, Registerpage, Cartpage ,MangaPage, NovelPage, AccountPage, Seriespage, Paymentpage}:
             frame = F(container, self)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
-        self.show_frame(Mainpage)
+        self.show_frame(Cartpage)
         
         
     
@@ -79,7 +80,7 @@ class Mainpage(tk.Frame):
         
         self.button_cart_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_cart.png"))
-        self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage),relief="flat")
+        self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage)if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
         self.button_cart.place(x=1083.0, y=30.0, width=56.0, height=56.0)
         
         self.button_bookstore_image = PhotoImage(file=ASSETS_PATH.joinpath("button_Bookstore.png"))
@@ -175,7 +176,7 @@ class Loginpage(tk.Frame):
         
         
         self.button_cart_image = PhotoImage(file=ASSETS_PATH.joinpath("button_cart.png"))
-        self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage),relief="flat")
+        self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage)if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
         self.button_cart.place(x=1083.0, y=30.0, width=56.0, height=56.0)
         
         self.button_bookstore_image = PhotoImage(file=ASSETS_PATH.joinpath("button_Bookstore.png"))
@@ -271,7 +272,7 @@ class Registerpage(tk.Frame):
         
         self.button_cart_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_cart.png"))
-        self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage),relief="flat")
+        self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage)if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
         self.button_cart.place(x=1083.0, y=30.0, width=56.0, height=56.0)
         
         self.button_bookstore_image = PhotoImage(file=ASSETS_PATH.joinpath("button_Bookstore.png"))
@@ -368,7 +369,7 @@ class Cartpage(tk.Frame):
         
         self.button_cart_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_cart.png"))
-        self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage),relief="flat")
+        self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage)if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
         self.button_cart.place(x=1083.0, y=30.0, width=56.0, height=56.0)
         
         self.button_bookstore_image = PhotoImage(file=ASSETS_PATH.joinpath("button_Bookstore.png"))
@@ -382,16 +383,20 @@ class Cartpage(tk.Frame):
         self.button_refresh = Button(self, image=self.button_refresh_image,borderwidth=0,highlightthickness=0,relief="flat",command=self.show_cart)
         self.button_refresh.place(x=1371.0,y=180.0,width=31.0,height=31.0)
         
-        # self.label_cart = Label(self, text="รายการสินค้าในตระกล้า",bg="#82C9FF" ,fg="#000000", font=("Angsana New", 20))
-        # self.label_cart.place(x=22, y=180)
-        
         self.canvascart.create_text(100, 30, text="รายการสินค้าในตระกล้า", fill="#000000", font=("Angsana New", 20))
         self.canvascart.create_text(900, 30, text="ข้อมูลการสั่งซื้อ", fill="#000000", font=("Angsana New", 20))
         
-        self.button_cfbuy = Button(self, text="ยืนยันการสั่งซื้อ", bg="#1895F5", fg="white", font=("Angsana New", 10))
+        self.button_comfrim_oreder = Button(self, text="ยืนยันการสั่งซื้อ", bg="#1895F5", fg="white", font=("Angsana New", 10), command= lambda: controller.show_frame(Paymentpage))
+        self.button_comfrim_oreder.place(x=600, y=811 , width=100, height=50)
+        
+        self.button_cfbuy = Button(self, text="ยืนยันการชำระเงิน", bg="#1895F5", fg="white", font=("Angsana New", 10), command= lambda: controller.show_frame(Paymentpage))
         self.button_cfbuy.place(x=1313, y=811 , width=100, height=50)
         
+        self.button_PrompPay = Button(self, text="PrompPay", bg="#1895F5", fg="white", font=("Angsana New", 10), command=self.show_Paymentprompay)
+        self.button_PrompPay.place(x=880, y=400 , width=100, height=30)
         
+        self.button_CreditCard = Button(self, text="CreditCard", bg="#1895F5", fg="white", font=("Angsana New", 10), command=self.show_Paymentcreditcard)
+        self.button_CreditCard.place(x=1100, y=400 , width=100, height=30)
         
         
         
@@ -421,6 +426,125 @@ class Cartpage(tk.Frame):
 
     except print(0):
         pass
+        
+        
+    def show_Paymentprompay(self):
+        print("show_Paymentprompay")
+        try:
+            self.label_creditcard.destroy()
+            self.entry_creditcard.destroy()
+            self.label_creditcardcvv.destroy()
+            self.entry_creditcardcvv.destroy()
+            self.label_creditcarddate.destroy()
+            self.entry_creditcarddate.destroy()
+            self.button_comfrim_creditcard.destroy()
+        except:
+            pass
+        self.label_promppay = Label(self, text="PrompPay", bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
+        self.label_promppay.place(x=880  , y=450)
+        self.entry_promppay = Entry(self,bg="#FFFFFF", fg="#000000", font=("Angsana New", 20))
+        self.entry_promppay.place(x=880  , y=500 , width=250.0, height=35.0)
+        self.button_comfrim_promppay = Button(self, text="ยืนยัน", bg="#1895F5", fg="white", font=("Angsana New", 10),command=self.check_Paymentprompay)
+        self.button_comfrim_promppay.place(x=880, y=550 , width=100, height=30)
+        
+    def show_Paymentcreditcard(self):
+        print("show_Paymentcreditcard")
+        try:
+            self.label_promppay.destroy()
+            self.entry_promppay.destroy()
+            self.button_comfrim_promppay.destroy()
+        except:
+            pass
+        self.label_creditcard = Label(self, text="CreditCard", bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
+        self.label_creditcard.place(x=880  , y=450)
+        self.entry_creditcard = Entry(self,bg="#FFFFFF", fg="#000000", font=("Angsana New", 20))
+        self.entry_creditcard.place(x=880  , y=500 , width=250.0, height=35.0)
+        self.label_creditcardcvv = Label(self, text="CVV", bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
+        self.label_creditcardcvv.place(x=1200  , y=450)
+        self.entry_creditcardcvv = Entry(self,bg="#FFFFFF", fg="#000000", font=("Angsana New", 20))
+        self.entry_creditcardcvv.place(x=1200  , y=500 , width=50.0, height=35.0)
+        self.label_creditcarddate = Label(self, text="วันหมดอายุ Ex 1/01/1999", bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
+        self.label_creditcarddate.place(x=880  , y=550)
+        self.entry_creditcarddate = Entry(self,bg="#FFFFFF", fg="#000000", font=("Angsana New", 20))
+        self.entry_creditcarddate.place(x=880  , y=600 , width=250.0, height=35.0)
+        self.button_comfrim_creditcard = Button(self, text="ยืนยัน", bg="#1895F5", fg="white", font=("Angsana New", 10),command=self.check_Paymentcreditcard)
+        self.button_comfrim_creditcard.place(x=880, y=650 , width=100, height=30)
+
+    
+    
+    def check_Paymentprompay(self):
+        sumprice =cart.get_cart_list_price()
+        prompayget = self.entry_promppay.get()
+        if prompayget == "":
+            msg.showerror("Error", "กรุณากรอกข้อมูลให้ครบถ้วน")
+            raise Exception("กรุณากรอกข้อมูลให้ครบถ้วน")
+        for i in PrompPay.PrompPay_list:
+            if prompayget == i.tel_number:
+                if i.payment_balance >= sumprice:
+                    print(i.payment_balance)
+                    msg.showinfo("Success", "ชำระเงินสำเร็จ")
+                else:
+                    msg.showerror("Error", "ชำระเงินไม่สำเร็จยอดเงินของคุณไม่พอเพียงพอ")
+            else:
+                msg.showerror("Error", "กรุณากรอกข้อมูลให้ถูกต้อง")
+                raise Exception("กรุณากรอกข้อมูลให้ถูกต้อง")
+            
+    def check_Paymentcreditcard(self):
+        sumprice =cart.get_cart_list_price()
+        creditcardget = self.entry_creditcard.get()
+        if creditcardget == "":
+            msg.showerror("Error", "กรุณากรอกข้อมูลให้ครบถ้วน")
+            raise Exception("กรุณากรอกข้อมูลให้ครบถ้วน")
+        for i in CreditCard.CreditCard_list:
+            if creditcardget == i.card_number:
+                if i.payment_balance >= sumprice:
+                    print(i.payment_balance)
+                    msg.showinfo("Success", "ชำระเงินสำเร็จ")
+                else:
+                    msg.showerror("Error", "ชำระเงินไม่สำเร็จยอดเงินของคุณไม่พอเพียงพอ")
+            else:
+                msg.showerror("Error", "กรุณากรอกข้อมูลให้ถูกต้อง")
+                raise Exception("กรุณากรอกข้อมูลให้ถูกต้อง")
+
+        
+
+
+
+class Paymentpage(tk.Frame):
+    
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
+        self.canvas.pack()
+        
+
+        self.button_account_image = PhotoImage(file=ASSETS_PATH.joinpath("button_account.png"))
+        self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(AccountPage) if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
+        self.button_account.place(x=1207.0,y=30.0,width=56.0,height=56.0)
+        
+        self.button_manga_image = PhotoImage(
+        file=ASSETS_PATH.joinpath("button_manga.png"))
+        self.button_manga = Button(self, image=self.button_manga_image, borderwidth=0, highlightthickness=0,command=lambda: controller.show_frame(MangaPage),relief="flat")
+        self.button_manga.place(x=274, y=43)
+        
+        self.button_novel_image = PhotoImage(
+        file=ASSETS_PATH.joinpath("button_novel.png"))
+        self.button_novel = Button(self, image=self.button_novel_image, borderwidth=0, highlightthickness=0,command=lambda: controller.show_frame(NovelPage),relief="flat")
+        self.button_novel.place(x=408, y=43)
+        
+        
+        self.button_cart_image = PhotoImage(
+        file=ASSETS_PATH.joinpath("button_cart.png"))
+        self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage)if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
+        self.button_cart.place(x=1083.0, y=30.0, width=56.0, height=56.0)
+        
+        self.button_bookstore_image = PhotoImage(file=ASSETS_PATH.joinpath("button_Bookstore.png"))
+        self.button_bookstore = Button(self, image=self.button_bookstore_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
+        self.button_bookstore.place(x=22.0, y=30.0, width=218.0, height=54.0)
+        
+        self.canvascart = Canvas(self, bg="#82C9FF", height=703, width=1440, bd=0, highlightthickness=0, relief="ridge")
+        self.canvascart.place(x=0, y=163)
+        
     
         
  
@@ -449,7 +573,7 @@ class MangaPage(tk.Frame):
         
         self.button_cart_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_cart.png"))
-        self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage),relief="flat")
+        self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage)if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
         self.button_cart.place(x=1083.0, y=30.0, width=56.0, height=56.0)
         
         self.button_bookstore_image = PhotoImage(file=ASSETS_PATH.joinpath("button_Bookstore.png"))
@@ -461,7 +585,7 @@ class MangaPage(tk.Frame):
         self.bookmg1 = Button(self, image=self.bookmg1_resize, borderwidth=0, highlightthickness=0,relief="flat")
         self.bookmg1.place(x=187.0, y=227.0, width=150.0, height=210.0)
         
-        self.label_bookmg1 = Label(self, text=f"{serverseries.book_list[6].book_name}", fg="#000000", font=("Inter", 10))
+        self.label_bookmg1 = Label(self, text=f"{serverseries.book_list[6].book_name}", fg="#FFffff", font=("Inter", 10))
         self.label_bookmg1.place(x=150.0, y=455.0, width=230.0, height=30.0)
         
         self.button_buymg1 = Button(self, text=f"ซื้อ {serverseries.book_list[6].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[6]))
@@ -555,7 +679,7 @@ class NovelPage(tk.Frame):
         
         self.button_cart_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_cart.png"))
-        self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage),relief="flat")
+        self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage) if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
         self.button_cart.place(x=1083.0, y=30.0, width=56.0, height=56.0)
         
         self.button_bookstore_image = PhotoImage(file=ASSETS_PATH.joinpath("button_Bookstore.png"))
@@ -810,7 +934,6 @@ class Seriespage(tk.Frame):
         
         self.after(500, self.updateseries)
     def updateseries(self):
-        print(cart.product_cart)
         self.seriesname.config(text=serverseries.series[serverseries.current_series].series_name)
         self.author.config(text="ผู้แต่ง \t" + serverseries.series[serverseries.current_series].author)
         self.release.config(text="วันที่เผยแพร่ \t" + serverseries.book_catalog_list[serverseries.current_series].releae_date)

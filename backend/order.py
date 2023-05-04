@@ -1,6 +1,6 @@
-from account import Customer
+from account import *
 class order(Customer):
-    def __init__(self,id, password, status, name, email, phone,address,order_id, total_price, order_status, order_date, order_in_cart, shipment_detal):
+    def __init__(self,order_id, total_price, order_status, order_date, order_in_cart, shipment_detal):
         super().__init__(order_id, total_price, order_status, order_date, order_in_cart, shipment_detal)
         self.order_id = order_id
         self.total_price = total_price
@@ -19,3 +19,4 @@ class order_history(order):
 
 
     
+

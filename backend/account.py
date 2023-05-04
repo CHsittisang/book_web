@@ -15,16 +15,8 @@ class Admin(Account):
         pass
 
 class Customer(Account):
-    def __init__(self, id, password,  name, email, phone, address, status = False):
+    def __init__(self, id, password,  name, email, phone, address,status = False):
         super().__init__( id, password,  name, email, phone)
+        self.order_history_list = []
         self.address = address
         self.status = status
-    
-    def view_accountinfo(self):
-        pass
-    
-
-    
-    
-    
-
