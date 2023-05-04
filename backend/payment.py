@@ -13,6 +13,9 @@ class PrompPay(payment):
     def add_prompay(self, prompay):
         self.PrompPay_list.append(prompay)
         
+    def subtact_balance(self, price):
+        self.payment_balance -= price
+        
         
         
 class CreditCard(payment):
@@ -34,7 +37,7 @@ class CreditCard(payment):
 
 
 prompay1 = PrompPay("1", 10000, "0868115450")
-creditcard1 = CreditCard("2", 10000, "4242424242424242", "nut", "1/1/2021", "123")
+creditcard1 = CreditCard("2", 10000, "424242424242", "nut", "01/01/2025", "123")
 
 prompay1.add_prompay(prompay1)
 creditcard1.add_creditcard(creditcard1)

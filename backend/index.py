@@ -9,6 +9,8 @@ from account import *
 from cart import *
 from payment import *
 import tkinter.ttk as ttk
+from order import *
+from discount import *
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = Path("backend/src/img")
@@ -348,6 +350,7 @@ class Cartpage(tk.Frame):
     
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
+        self.controller = controller
         self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
         self.canvas.pack()
         
@@ -386,10 +389,8 @@ class Cartpage(tk.Frame):
         self.canvascart.create_text(100, 30, text="รายการสินค้าในตระกล้า", fill="#000000", font=("Angsana New", 20))
         self.canvascart.create_text(900, 30, text="ข้อมูลการสั่งซื้อ", fill="#000000", font=("Angsana New", 20))
         
-        self.button_comfrim_oreder = Button(self, text="ยืนยันการสั่งซื้อ", bg="#1895F5", fg="white", font=("Angsana New", 10), command= lambda: controller.show_frame(Paymentpage))
-        self.button_comfrim_oreder.place(x=600, y=811 , width=100, height=50)
         
-        self.button_cfbuy = Button(self, text="ยืนยันการชำระเงิน", bg="#1895F5", fg="white", font=("Angsana New", 10), command= lambda: controller.show_frame(Paymentpage))
+        self.button_cfbuy = Button(self, text="ยืนยันการสั่งซื้อ", bg="#1895F5", fg="white", font=("Angsana New", 10), command= self.check_Paymentprompay)
         self.button_cfbuy.place(x=1313, y=811 , width=100, height=50)
         
         self.button_PrompPay = Button(self, text="PrompPay", bg="#1895F5", fg="white", font=("Angsana New", 10), command=self.show_Paymentprompay)
@@ -400,12 +401,21 @@ class Cartpage(tk.Frame):
         
         
         
+
+        
+            
+        
+        
     try:
-       def show_cart(self):
+        def show_cart(self):
             y = 250
+            try:
+                self.entry_code.destroy()
+            except:
+                pass
             for widget in self.winfo_children():
                 if isinstance(widget, tk.Label):
-                    widget.destroy() # ลบ Label ทั้งหมดออกจากหน้าต่าง
+                    widget.destroy()
             for i in cart.product_cart:
                 self.itemcartname = Label(self, text=i.book_name, bg="#82C9FF" ,fg="#000000", font=("Angsana New", 20))
                 self.itemcartname.place(x=40, y=y)
@@ -423,11 +433,13 @@ class Cartpage(tk.Frame):
             self.infoshipment3.place(x=880  , y=310)
             self.infoshipment4 = Label(self, text=f"ที่อยู่ \t: {server.customerlogin[0].address}" , bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
             self.infoshipment4.place(x=880  , y=340)
-
     except print(0):
-        pass
+        pass 
+
         
         
+            
+    
     def show_Paymentprompay(self):
         print("show_Paymentprompay")
         try:
@@ -437,24 +449,37 @@ class Cartpage(tk.Frame):
             self.entry_creditcardcvv.destroy()
             self.label_creditcarddate.destroy()
             self.entry_creditcarddate.destroy()
-            self.button_comfrim_creditcard.destroy()
+            self.label_codecredit.destroy()
+            self.entry_codecredit.destroy()
         except:
             pass
+        self.button_CreditCard.configure(state="normal") # ปิดใช้งาน button_CreditCard
+        self.button_PrompPay.configure(state="disabled")
         self.label_promppay = Label(self, text="PrompPay", bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
         self.label_promppay.place(x=880  , y=450)
         self.entry_promppay = Entry(self,bg="#FFFFFF", fg="#000000", font=("Angsana New", 20))
         self.entry_promppay.place(x=880  , y=500 , width=250.0, height=35.0)
-        self.button_comfrim_promppay = Button(self, text="ยืนยัน", bg="#1895F5", fg="white", font=("Angsana New", 10),command=self.check_Paymentprompay)
-        self.button_comfrim_promppay.place(x=880, y=550 , width=100, height=30)
+        self.label_codepromppay = Label(self, text="รหัสส่วนลด", bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
+        self.label_codepromppay.place(x=880  , y=550)
+        self.entry_codepromppay = Entry(self, bg="#FFFFFF", fg="#000000", font=("Angsana New", 20))
+        self.entry_codepromppay.place(x=880  , y=600 , width=250.0, height=35.0)
+        # self.button_comfrim_promppay = Button(self, text="ยืนยัน", bg="#1895F5", fg="white", font=("Angsana New", 10),command=self.check_Paymentprompay)
+        # self.button_comfrim_promppay.place(x=880, y=550 , width=100, height=30)
+
+        
+        
         
     def show_Paymentcreditcard(self):
         print("show_Paymentcreditcard")
         try:
             self.label_promppay.destroy()
             self.entry_promppay.destroy()
-            self.button_comfrim_promppay.destroy()
+            self.label_codepromppay.destroy()
+            self.entry_codepromppay.destroy()
         except:
             pass
+        self.button_PrompPay.configure(state="normal")  # ปิดใช้งาน button_PrompPay
+        self.button_CreditCard.configure(state="disabled")
         self.label_creditcard = Label(self, text="CreditCard", bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
         self.label_creditcard.place(x=880  , y=450)
         self.entry_creditcard = Entry(self,bg="#FFFFFF", fg="#000000", font=("Angsana New", 20))
@@ -467,20 +492,29 @@ class Cartpage(tk.Frame):
         self.label_creditcarddate.place(x=880  , y=550)
         self.entry_creditcarddate = Entry(self,bg="#FFFFFF", fg="#000000", font=("Angsana New", 20))
         self.entry_creditcarddate.place(x=880  , y=600 , width=250.0, height=35.0)
-        self.button_comfrim_creditcard = Button(self, text="ยืนยัน", bg="#1895F5", fg="white", font=("Angsana New", 10),command=self.check_Paymentcreditcard)
-        self.button_comfrim_creditcard.place(x=880, y=650 , width=100, height=30)
-
-    
-    
+        self.label_codecredit = Label(self, text="รหัสส่วนลด", bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
+        self.label_codecredit.place(x=880  , y=650)
+        self.entry_codecredit = Entry(self, bg="#FFFFFF", fg="#000000", font=("Angsana New", 20))
+        self.entry_codecredit.place(x=880  , y=700 , width=250.0, height=35.0)
+        
     def check_Paymentprompay(self):
-        sumprice =cart.get_cart_list_price()
         prompayget = self.entry_promppay.get()
+        codediscountget = self.entry_codepromppay.get()
+        sumprice =cart.get_cart_list_price()
         if prompayget == "":
             msg.showerror("Error", "กรุณากรอกข้อมูลให้ครบถ้วน")
             raise Exception("กรุณากรอกข้อมูลให้ครบถ้วน")
+        for i in discount.code_list:
+            if codediscountget == i.discount_code:
+                sumprice = sumprice - i.balance
+                print(sumprice)
+            else:
+                msg.showerror("Error", "กรุณากรอกข้อมูลให้ถูกต้อง")
+                raise Exception("กรุณากรอกข้อมูลให้ถูกต้อง")
         for i in PrompPay.PrompPay_list:
             if prompayget == i.tel_number:
                 if i.payment_balance >= sumprice:
+                    PrompPay.PrompPay_list[PrompPay.PrompPay_list.index(i)].payment_balance -= sumprice
                     print(i.payment_balance)
                     msg.showinfo("Success", "ชำระเงินสำเร็จ")
                 else:
@@ -490,22 +524,21 @@ class Cartpage(tk.Frame):
                 raise Exception("กรุณากรอกข้อมูลให้ถูกต้อง")
             
     def check_Paymentcreditcard(self):
-        sumprice =cart.get_cart_list_price()
         creditcardget = self.entry_creditcard.get()
-        if creditcardget == "":
+        creditcardcvvget = self.entry_creditcardcvv.get()
+        creditcarddateget = self.entry_creditcarddate.get()
+        if creditcardget == "" or creditcardcvvget == "" or creditcarddateget == "":
             msg.showerror("Error", "กรุณากรอกข้อมูลให้ครบถ้วน")
             raise Exception("กรุณากรอกข้อมูลให้ครบถ้วน")
         for i in CreditCard.CreditCard_list:
-            if creditcardget == i.card_number:
+            if creditcardget == i.card_number and creditcardcvvget == i.card_cvv and creditcarddateget == i.card_date:
                 if i.payment_balance >= sumprice:
-                    print(i.payment_balance)
+                    CreditCard.CreditCard_list[CreditCard.CreditCard_list.index(i)].payment_balance -= sumprice
                     msg.showinfo("Success", "ชำระเงินสำเร็จ")
                 else:
                     msg.showerror("Error", "ชำระเงินไม่สำเร็จยอดเงินของคุณไม่พอเพียงพอ")
-            else:
-                msg.showerror("Error", "กรุณากรอกข้อมูลให้ถูกต้อง")
-                raise Exception("กรุณากรอกข้อมูลให้ถูกต้อง")
-
+    
+    
         
 
 
