@@ -1,4 +1,4 @@
-class Ordercart: 
+class Cart: 
     def __init__(self):
         self.product_cart = []
         
@@ -28,7 +28,7 @@ class Ordercart:
     
 
 
-cart = Ordercart()
+cart = Cart()
 
     
     
