@@ -6,12 +6,13 @@ from tkinter import messagebox as msg
 import tkinter as tk
 from system import *
 from account import *
-from ordercart import *
+from cart import *
 from payment import *
 import tkinter.ttk as ttk
 from order import *
 from discount import *
-
+from shipment import *
+import datetime
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = Path("backend/src/img")
 
@@ -38,7 +39,7 @@ class Bookstore(tk.Tk):
             frame = F(container, self)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
-        self.show_frame(Cartpage)
+        self.show_frame(Mainpage)
         
         
     
@@ -399,6 +400,7 @@ class Cartpage(tk.Frame):
     try:
         def show_cart(self):
             y = 250
+        
             try:
                 self.entry_code.destroy()
             except:
@@ -412,9 +414,13 @@ class Cartpage(tk.Frame):
                 self.itemcartprice = Label(self, text=f"{i.price} บาท", bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
                 self.itemcartprice.place(x=600  , y=y)
                 sumprice =cart.get_cart_list_price()
+                sumprice += 50
                 y += 30
-            self.itemcartsumprice = Label(self, text=f"ราคารวม {sumprice:.2f} บาท", bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
-            self.itemcartsumprice.place(x=40  , y=y+30)
+                
+            self.shipmentprice = Label(self, text=f"ค่าส่ง 50 บาท", bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
+            self.shipmentprice.place(x=40  , y=y+30)
+            self.itemcartsumprice = Label(self, text=f"ราคารวม {sumprice} บาท", bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
+            self.itemcartsumprice.place(x=40  , y=y+60)
             self.infoshipment1 = Label(self, text=f"ชื่อผู้รับ \t: {server.customerlogin[0].name}" , bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
             self.infoshipment1.place(x=880  , y=250)
             self.infoshipment2 = Label(self, text=f"เบอร์โทร \t: {server.customerlogin[0].phone}" , bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
@@ -500,10 +506,12 @@ class Cartpage(tk.Frame):
         for i in PrompPay.PrompPay_list:
             if prompayget == i.tel_number:
                 if i.payment_balance >= sumprice:
-                    PrompPay.PrompPay_list[PrompPay.PrompPay_list.index(i)].payment_balance -= sumprice
-                    msg.showinfo("Success", "ชำระเงินสำเร็จ ยอดซื้อของคุณคือ "+str(sumprice)+" บาท")
+                    time = datetime.datetime.now()
+                    shipment = Shipment("1", "shipping", time, "EMS", 50, server.customerlogin[0].address)
+                    PrompPay.PrompPay_list[PrompPay.PrompPay_list.index(i)].payment_balance -= sumprice+50
+                    msg.showinfo("Success", "ชำระเงินสำเร็จ ยอดซื้อของคุณคือ "+str(sumprice+50)+" บาท")
                     item = cart.get_cart_list()
-                    server.customerlogin[0].order_history_list.append(Order(1, sumprice, "Complete", item))
+                    server.customerlogin[0].order_history_list.append(Order(1, sumprice, "Complete", item, shipment))
                     cart.clear_cart_list()
                     self.controller.show_frame(Mainpage)
                     for widget in self.winfo_children():
@@ -535,10 +543,12 @@ class Cartpage(tk.Frame):
         for i in CreditCard.CreditCard_list:
             if creditcardget == i.card_number and creditcardcvvget == i.card_cvv and creditcarddateget == i.card_date:
                 if i.payment_balance >= sumprice:
-                    CreditCard.CreditCard_list[CreditCard.CreditCard_list.index(i)].payment_balance -= sumprice
-                    msg.showinfo("Success", "ชำระเงินสำเร็จ ยอดซื้อของคุณคือ "+str(sumprice)+" บาท")
+                    time = datetime.datetime.now()
+                    shipment = Shipment("1", "shipping", time, "EMS", 50, server.customerlogin[0].address)
+                    CreditCard.CreditCard_list[CreditCard.CreditCard_list.index(i)].payment_balance -= sumprice+50
+                    msg.showinfo("Success", "ชำระเงินสำเร็จ ยอดซื้อของคุณคือ "+str(sumprice+50)+" บาท")
                     item = cart.get_cart_list()
-                    server.customerlogin[0].order_history_list.append(Order(1, sumprice, "Complete", item))
+                    server.customerlogin[0].order_history_list.append(Order(1, sumprice, "Complete", item, shipment))
                     cart.clear_cart_list()
                     self.controller.show_frame(Mainpage)
                     for widget in self.winfo_children():
