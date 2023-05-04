@@ -390,11 +390,16 @@ class Cartpage(tk.Frame):
         self.button_CreditCard = Button(self, text="CreditCard", bg="#1895F5", fg="white", font=("Angsana New", 10), command=self.show_Paymentcreditcard)
         self.button_CreditCard.place(x=1100, y=400 , width=100, height=30)
         
+        self.button_clearcart_image = PhotoImage(file=ASSETS_PATH.joinpath("binbutton.png"))
+        self.button_clearcart = Button(self, image=self.button_clearcart_image,borderwidth=0,highlightthickness=0,relief="flat",command= cart.clear_cart_list)
+        self.button_clearcart.place(x=40.0,y=811.0,width=31.0,height=31.0)
+        self.canvascart.create_text(160, 665, text="ลบสิ้นค้าทั้งหมด", fill="#000000", font=("Angsana New", 20))
+
         
         
 
         
-            
+
         
         
     try:
@@ -416,7 +421,7 @@ class Cartpage(tk.Frame):
                 sumprice =cart.get_cart_list_price()
                 sumprice += 50
                 y += 30
-                
+            
             self.shipmentprice = Label(self, text=f"ค่าส่ง 50 บาท", bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
             self.shipmentprice.place(x=40  , y=y+30)
             self.itemcartsumprice = Label(self, text=f"ราคารวม {sumprice} บาท", bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
