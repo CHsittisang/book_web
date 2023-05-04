@@ -516,7 +516,7 @@ class Cartpage(tk.Frame):
                 if i.payment_balance >= sumprice:
                     PrompPay.PrompPay_list[PrompPay.PrompPay_list.index(i)].payment_balance -= sumprice
                     print(i.payment_balance)
-                    msg.showinfo("Success", "ชำระเงินสำเร็จ")
+                    msg.showinfo("Success", "ชำระเงินสำเร็จ ยอดซื้อของคุณคือ "+str(sumprice)+" บาท")
                 else:
                     msg.showerror("Error", "ชำระเงินไม่สำเร็จยอดเงินของคุณไม่พอเพียงพอ")
             else:
@@ -527,6 +527,7 @@ class Cartpage(tk.Frame):
         creditcardget = self.entry_creditcard.get()
         creditcardcvvget = self.entry_creditcardcvv.get()
         creditcarddateget = self.entry_creditcarddate.get()
+        sumprice =cart.get_cart_list_price()
         if creditcardget == "" or creditcardcvvget == "" or creditcarddateget == "":
             msg.showerror("Error", "กรุณากรอกข้อมูลให้ครบถ้วน")
             raise Exception("กรุณากรอกข้อมูลให้ครบถ้วน")
