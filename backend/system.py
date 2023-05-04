@@ -71,7 +71,7 @@ class Seriessystem:
                 release_date = row['relea_date']
                 number_of_product = row['number_of_product']
                 self.book_list.append(Book(book_name, book_id, detail_in_book, type, price, img, release_date, number_of_product))
-                
+
 
 
 
