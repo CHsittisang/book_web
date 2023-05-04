@@ -58,17 +58,10 @@ class Mainpage(tk.Frame):
         self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
         self.canvas.pack()
         self.controller = controller
-
-        self.showname = "Guest"
-        self.TKshowname = StringVar()
-        self.TKshowname.set(self.showname)
-        
-        self.Lable_main = Label(self, text=self.TKshowname.get(), bg="#1895F5", fg="white", font=("Inter", 16))
-        self.Lable_main.place(x=1331, y=45)
         
         self.button_account_image = PhotoImage(file=ASSETS_PATH.joinpath("button_account.png"))
         self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(AccountPage) if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
-        self.button_account.place(x=1207.0,y=30.0,width=56.0,height=56.0)
+        self.button_account.place(x=1307.0,y=30.0,width=56.0,height=56.0)
         
         self.button_manga_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_manga.png"))
@@ -84,7 +77,7 @@ class Mainpage(tk.Frame):
         self.button_cart_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_cart.png"))
         self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage)if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
-        self.button_cart.place(x=1083.0, y=30.0, width=56.0, height=56.0)
+        self.button_cart.place(x=1183.0, y=30.0, width=56.0, height=56.0)
         
         self.button_bookstore_image = PhotoImage(file=ASSETS_PATH.joinpath("button_Bookstore.png"))
         self.button_bookstore = Button(self, image=self.button_bookstore_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
@@ -167,7 +160,7 @@ class Loginpage(tk.Frame):
         self.canvas.pack()
         self.button_account_image = PhotoImage(file=ASSETS_PATH.joinpath("button_account.png"))
         self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(AccountPage) if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
-        self.button_account.place(x=1207.0,y=30.0,width=56.0,height=56.0)
+        self.button_account.place(x=1307.0,y=30.0,width=56.0,height=56.0)
         
         self.button_manga_image = PhotoImage(file=ASSETS_PATH.joinpath("button_manga.png"))
         self.button_manga = Button(self, image=self.button_manga_image, borderwidth=0, highlightthickness=0,command=lambda: controller.show_frame(MangaPage),relief="flat")
@@ -180,7 +173,7 @@ class Loginpage(tk.Frame):
         
         self.button_cart_image = PhotoImage(file=ASSETS_PATH.joinpath("button_cart.png"))
         self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage)if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
-        self.button_cart.place(x=1083.0, y=30.0, width=56.0, height=56.0)
+        self.button_cart.place(x=1183.0, y=30.0, width=56.0, height=56.0)
         
         self.button_bookstore_image = PhotoImage(file=ASSETS_PATH.joinpath("button_Bookstore.png"))
         self.button_bookstore = Button(self, image=self.button_bookstore_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
@@ -260,7 +253,7 @@ class Registerpage(tk.Frame):
 
         self.button_account_image = PhotoImage(file=ASSETS_PATH.joinpath("button_account.png"))
         self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(AccountPage) if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
-        self.button_account.place(x=1207.0,y=30.0,width=56.0,height=56.0)
+        self.button_account.place(x=1307.0,y=30.0,width=56.0,height=56.0)
         
         self.button_manga_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_manga.png"))
@@ -276,7 +269,7 @@ class Registerpage(tk.Frame):
         self.button_cart_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_cart.png"))
         self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage)if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
-        self.button_cart.place(x=1083.0, y=30.0, width=56.0, height=56.0)
+        self.button_cart.place(x=1183.0, y=30.0, width=56.0, height=56.0)
         
         self.button_bookstore_image = PhotoImage(file=ASSETS_PATH.joinpath("button_Bookstore.png"))
         self.button_bookstore = Button(self, image=self.button_bookstore_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
@@ -358,7 +351,7 @@ class Cartpage(tk.Frame):
 
         self.button_account_image = PhotoImage(file=ASSETS_PATH.joinpath("button_account.png"))
         self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(AccountPage) if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
-        self.button_account.place(x=1207.0,y=30.0,width=56.0,height=56.0)
+        self.button_account.place(x=1307.0,y=30.0,width=56.0,height=56.0)
         
         self.button_manga_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_manga.png"))
@@ -374,7 +367,7 @@ class Cartpage(tk.Frame):
         self.button_cart_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_cart.png"))
         self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage)if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
-        self.button_cart.place(x=1083.0, y=30.0, width=56.0, height=56.0)
+        self.button_cart.place(x=1183.0, y=30.0, width=56.0, height=56.0)
         
         self.button_bookstore_image = PhotoImage(file=ASSETS_PATH.joinpath("button_Bookstore.png"))
         self.button_bookstore = Button(self, image=self.button_bookstore_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
@@ -592,7 +585,7 @@ class Paymentpage(tk.Frame):
 
         self.button_account_image = PhotoImage(file=ASSETS_PATH.joinpath("button_account.png"))
         self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(AccountPage) if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
-        self.button_account.place(x=1207.0,y=30.0,width=56.0,height=56.0)
+        self.button_account.place(x=1307.0,y=30.0,width=56.0,height=56.0)
         
         self.button_manga_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_manga.png"))
@@ -608,7 +601,7 @@ class Paymentpage(tk.Frame):
         self.button_cart_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_cart.png"))
         self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage)if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
-        self.button_cart.place(x=1083.0, y=30.0, width=56.0, height=56.0)
+        self.button_cart.place(x=1183.0, y=30.0, width=56.0, height=56.0)
         
         self.button_bookstore_image = PhotoImage(file=ASSETS_PATH.joinpath("button_Bookstore.png"))
         self.button_bookstore = Button(self, image=self.button_bookstore_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
@@ -630,7 +623,7 @@ class MangaPage(tk.Frame):
 
         self.button_account_image = PhotoImage(file=ASSETS_PATH.joinpath("button_account.png"))
         self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(AccountPage) if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
-        self.button_account.place(x=1207.0,y=30.0,width=56.0,height=56.0)
+        self.button_account.place(x=1307.0,y=30.0,width=56.0,height=56.0)
         
         self.button_manga_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_manga.png"))
@@ -646,7 +639,7 @@ class MangaPage(tk.Frame):
         self.button_cart_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_cart.png"))
         self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage)if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
-        self.button_cart.place(x=1083.0, y=30.0, width=56.0, height=56.0)
+        self.button_cart.place(x=1183.0, y=30.0, width=56.0, height=56.0)
         
         self.button_bookstore_image = PhotoImage(file=ASSETS_PATH.joinpath("button_Bookstore.png"))
         self.button_bookstore = Button(self, image=self.button_bookstore_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
@@ -735,7 +728,7 @@ class NovelPage(tk.Frame):
         
         self.button_account_image = PhotoImage(file=ASSETS_PATH.joinpath("button_account.png"))
         self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(AccountPage) if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
-        self.button_account.place(x=1207.0,y=30.0,width=56.0,height=56.0)
+        self.button_account.place(x=1307.0,y=30.0,width=56.0,height=56.0)
         
         
         self.button_manga_image = PhotoImage(
@@ -752,7 +745,7 @@ class NovelPage(tk.Frame):
         self.button_cart_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_cart.png"))
         self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage) if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
-        self.button_cart.place(x=1083.0, y=30.0, width=56.0, height=56.0)
+        self.button_cart.place(x=1183.0, y=30.0, width=56.0, height=56.0)
         
         self.button_bookstore_image = PhotoImage(file=ASSETS_PATH.joinpath("button_Bookstore.png"))
         self.button_bookstore = Button(self, image=self.button_bookstore_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
@@ -852,7 +845,7 @@ class AccountPage(tk.Frame):
         
         self.button_account_image = PhotoImage(file=ASSETS_PATH.joinpath("button_account.png"))
         self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: [controller.show_frame(AccountPage) if len(server.customerlogin) == 1 else controller.show_frame(Loginpage) , self.update()],relief="flat")
-        self.button_account.place(x=1207.0,y=30.0,width=56.0,height=56.0)
+        self.button_account.place(x=1307.0,y=30.0,width=56.0,height=56.0)
         
         self.button_manga_image = PhotoImage(file=ASSETS_PATH.joinpath("button_manga.png"))
         self.button_manga = Button(self, image=self.button_manga_image, borderwidth=0, highlightthickness=0,command=lambda: controller.show_frame(MangaPage),relief="flat")
@@ -867,7 +860,7 @@ class AccountPage(tk.Frame):
         self.button_cart_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_cart.png"))
         self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage),relief="flat")
-        self.button_cart.place(x=1083.0, y=30.0, width=56.0, height=56.0)
+        self.button_cart.place(x=1183.0, y=30.0, width=56.0, height=56.0)
         
         self.button_bookstore_image = PhotoImage(file=ASSETS_PATH.joinpath("button_Bookstore.png"))
         self.button_bookstore = Button(self, image=self.button_bookstore_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
@@ -944,7 +937,7 @@ class Seriespage(tk.Frame):
         
         self.button_account_image = PhotoImage(file=ASSETS_PATH.joinpath("button_account.png"))
         self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: [controller.show_frame(AccountPage) if len(server.customerlogin) == 1 else controller.show_frame(Loginpage)],relief="flat")
-        self.button_account.place(x=1207.0,y=30.0,width=56.0,height=56.0)
+        self.button_account.place(x=1307.0,y=30.0,width=56.0,height=56.0)
         
         self.button_manga_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_manga.png"))
@@ -960,7 +953,7 @@ class Seriespage(tk.Frame):
         self.button_cart_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_cart.png"))
         self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage),relief="flat")
-        self.button_cart.place(x=1083.0, y=30.0, width=56.0, height=56.0)
+        self.button_cart.place(x=1183.0, y=30.0, width=56.0, height=56.0)
         
         self.button_bookstore_image = PhotoImage(file=ASSETS_PATH.joinpath("button_Bookstore.png"))
         self.button_bookstore = Button(self, image=self.button_bookstore_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Mainpage),relief="flat")
