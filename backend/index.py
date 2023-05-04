@@ -399,13 +399,6 @@ class Cartpage(tk.Frame):
         self.button_CreditCard = Button(self, text="CreditCard", bg="#1895F5", fg="white", font=("Angsana New", 10), command=self.show_Paymentcreditcard)
         self.button_CreditCard.place(x=1100, y=400 , width=100, height=30)
         
-        
-        
-
-        
-            
-        
-        
     try:
         def show_cart(self):
             y = 250
@@ -435,11 +428,7 @@ class Cartpage(tk.Frame):
             self.infoshipment4.place(x=880  , y=340)
     except print(0):
         pass 
-
-        
-        
-            
-    
+                
     def show_Paymentprompay(self):
         print("show_Paymentprompay")
         try:
