@@ -21,7 +21,3 @@ class Customer(Account):
         self.address = address
         self.status = status
         
-        
-    def add_order_to_history(self, order):
-        if order.order_status == "complete":
-            self.order_history_list.append(order)
