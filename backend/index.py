@@ -390,6 +390,13 @@ class Cartpage(tk.Frame):
         self.button_CreditCard = Button(self, text="CreditCard", bg="#1895F5", fg="white", font=("Angsana New", 10), command=self.show_Paymentcreditcard)
         self.button_CreditCard.place(x=1100, y=400 , width=100, height=30)
         
+        
+        
+
+        
+            
+        
+        
     try:
         def show_cart(self):
             y = 250
@@ -409,7 +416,7 @@ class Cartpage(tk.Frame):
                 sumprice =cart.get_cart_list_price()
                 sumprice += 50
                 y += 30
-                
+            
             self.shipmentprice = Label(self, text=f"ค่าส่ง 50 บาท", bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
             self.shipmentprice.place(x=40  , y=y+30)
             self.itemcartsumprice = Label(self, text=f"ราคารวม {sumprice} บาท", bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
