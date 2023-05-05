@@ -219,15 +219,9 @@ class Loginpage(tk.Frame):
         self.password = self.entry_Password.get()
         self.entry_ID.delete(0,END)
         self.entry_Password.delete(0,END)
-        print(server.customer)
         for i in server.customer:
-            print(i)
-            print(server.count_account)
             if i.id == self.id and i.password == self.password and i.status == False and i.id != "admin" and i.id != "Guest":
-                print(server.customer[server.count_account].status)
                 server.customer[server.count_account].status = True
-                print(server.customer[server.count_account].status)
-                print(server.count_account)
                 msg.showinfo("Login", "Login Success")
                 self.controller.show_frame(Mainpage)
                 server.add_customerlogin(server.customer[server.count_account])
@@ -333,11 +327,12 @@ class Registerpage(tk.Frame):
                     self.entry_Password.delete(0, END)
                     msg.showerror("Error", "This ID is already in use")
                     raise Exception("This ID is already in use")
-            print(server.customer)
         server.add_customer(Customer(self.id, self.password, self.name, self.email, self.phone, self.address))
+        registerprompay = PrompPay(len(PrompPay.PrompPay_list)+1, 10000, self.phone)
+        PrompPay.PrompPay_list.append(registerprompay)
         msg.showinfo("Success", "Register Success")
         self.controller.show_frame(Mainpage)
-        print(server.customer[-1])
+
         
 
 class Cartpage(tk.Frame):
@@ -442,7 +437,6 @@ class Cartpage(tk.Frame):
             
     
     def show_Paymentprompay(self):
-        print("show_Paymentprompay")
         try:
             self.label_creditcard.destroy()
             self.entry_creditcard.destroy()
@@ -455,7 +449,7 @@ class Cartpage(tk.Frame):
             self.button_confirmbuycredit.destroy()
         except:
             pass
-        self.button_CreditCard.configure(state="normal") # ปิดใช้งาน button_CreditCard
+        self.button_CreditCard.configure(state="normal")
         self.button_PrompPay.configure(state="disabled")
         self.label_promppay = Label(self, text="PrompPay", bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
         self.label_promppay.place(x=880  , y=450)
@@ -472,7 +466,6 @@ class Cartpage(tk.Frame):
         
         
     def show_Paymentcreditcard(self):
-        print("show_Paymentcreditcard")
         try:
             self.label_promppay.destroy()
             self.entry_promppay.destroy()
@@ -481,7 +474,7 @@ class Cartpage(tk.Frame):
             self.button_confirmbuyprompay.destroy()
         except:
             pass
-        self.button_PrompPay.configure(state="normal")  # ปิดใช้งาน button_PrompPay
+        self.button_PrompPay.configure(state="normal")
         self.button_CreditCard.configure(state="disabled")
         self.label_creditcard = Label(self, text="CreditCard", bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
         self.label_creditcard.place(x=880  , y=450)
@@ -513,6 +506,8 @@ class Cartpage(tk.Frame):
             if codediscountget == i.discount_code:
                 sumprice = sumprice - i.balance
         for i in PrompPay.PrompPay_list:
+            print("รูปออกมา"+i.tel_number)
+            print("รับค่า"+prompayget)
             if prompayget == i.tel_number:
                 if i.payment_balance >= sumprice:
                     time = datetime.datetime.now()
@@ -531,11 +526,10 @@ class Cartpage(tk.Frame):
                     self.label_codepromppay.destroy()
                     self.entry_codepromppay.destroy()
                     self.button_confirmbuyprompay.destroy()
+                    
                 else:
                     msg.showerror("Error", "ชำระเงินไม่สำเร็จยอดเงินของคุณไม่พอเพียงพอ")
-            else:
-                msg.showerror("Error", "กรุณากรอกข้อมูลให้ถูกต้อง")
-                raise Exception("กรุณากรอกข้อมูลให้ถูกต้อง")
+                    raise Exception("ชำระเงินไม่สำเร็จยอดเงินของคุณไม่พอเพียงพอ")
             
     def check_Paymentcreditcard(self):
         creditcardget = self.entry_creditcard.get()
@@ -655,7 +649,7 @@ class MangaPage(tk.Frame):
         self.bookmg1 = Button(self, image=self.bookmg1_resize, borderwidth=0, highlightthickness=0,relief="flat")
         self.bookmg1.place(x=187.0, y=227.0, width=150.0, height=210.0)
         
-        self.label_bookmg1 = Label(self, text=f"{serverseries.book_list[6].book_name}", fg="#FFffff", font=("Inter", 10))
+        self.label_bookmg1 = Label(self, text=f"{serverseries.book_list[6].book_name}", fg="#000000", font=("Inter", 10))
         self.label_bookmg1.place(x=150.0, y=455.0, width=230.0, height=30.0)
         
         self.button_buymg1 = Button(self, text=f"ซื้อ {serverseries.book_list[6].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[6]))
@@ -840,7 +834,6 @@ class AccountPage(tk.Frame):
         self.canvas.pack()
         self.controller = controller
         
-        print("Account page" + str(server.count_account))
         self.TKuser_Id = StringVar()
         self.Tkuser_Name = StringVar()
         self.TKuser_Email = StringVar()
