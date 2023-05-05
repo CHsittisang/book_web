@@ -4,7 +4,6 @@ class Cart:
         
 
     def add_to_cart_list(self, item):
-        print("Adding item to cart")
         self.product_cart.append(item)
     
     def get_cart_list(self):
@@ -24,9 +23,6 @@ class Cart:
     
     def clear_cart_list(self):
         self.product_cart.clear()
-
-    
-
 
 cart = Cart()
 

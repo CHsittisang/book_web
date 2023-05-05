@@ -32,18 +32,8 @@ class CreditCard(payment):
 
 
 
-
-
-
-
 prompay1 = PrompPay("1", 10000, "0868115450")
 creditcard1 = CreditCard("2", 10000, "424242424242", "nut", "01/01/2025", "123")
 
 prompay1.add_prompay(prompay1)
 creditcard1.add_creditcard(creditcard1)
-
-
-
-print(PrompPay.PrompPay_list[0].tel_number)
-print(CreditCard.CreditCard_list[0].card_number)
-        

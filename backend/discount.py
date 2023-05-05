@@ -11,5 +11,4 @@ class discount:
 codediscount1 = discount("9999", 100, "01/01/2024")
 discount.add_discount(discount,codediscount1)
 
-print(discount.code_list[0].discount_code)
 

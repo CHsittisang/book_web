@@ -17,9 +17,7 @@ OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = Path("backend/src/img")
 
 
-
 LARGE_FONT= ("Verdana", 12)
-
 
 class Bookstore(tk.Tk):
     def __init__(self, *args ,**kwargs):
@@ -40,16 +38,11 @@ class Bookstore(tk.Tk):
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
         self.show_frame(Mainpage)
-        
-        
     
     def show_frame(self, cont):
     
         frame = self.frames[cont]
         frame.tkraise()
-        
-
-
 class Mainpage(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -72,7 +65,6 @@ class Mainpage(tk.Frame):
         file=ASSETS_PATH.joinpath("button_novel.png"))
         self.button_novel = Button(self, image=self.button_novel_image, borderwidth=0, highlightthickness=0,command=lambda: controller.show_frame(NovelPage),relief="flat")
         self.button_novel.place(x=408, y=43)
-        
         
         self.button_cart_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_cart.png"))
@@ -143,8 +135,6 @@ class Mainpage(tk.Frame):
         self.current_image = (self.current_image + 1) % len(self.images)
         self.canvas.itemconfig(self.image_item, image=self.images[self.current_image])
         self.after(10000, self.switch_image)
-    
-    
         
 class Loginpage(tk.Frame):
     
@@ -153,8 +143,6 @@ class Loginpage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-
-        
         
         self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
         self.canvas.pack()
@@ -212,22 +200,14 @@ class Loginpage(tk.Frame):
         self.button_signup = Button(self, image=self.button_image_signup,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Registerpage),relief="flat")
         self.button_signup.place(x=1188.0,y=530.0,width=97.0,height=33.0)
             
-
-        
     def system_login(self):
         self.id = self.entry_ID.get()
         self.password = self.entry_Password.get()
         self.entry_ID.delete(0,END)
         self.entry_Password.delete(0,END)
-        print(server.customer)
         for i in server.customer:
-            print(i)
-            print(server.count_account)
             if i.id == self.id and i.password == self.password and i.status == False and i.id != "admin" and i.id != "Guest":
-                print(server.customer[server.count_account].status)
                 server.customer[server.count_account].status = True
-                print(server.customer[server.count_account].status)
-                print(server.count_account)
                 msg.showinfo("Login", "Login Success")
                 self.controller.show_frame(Mainpage)
                 server.add_customerlogin(server.customer[server.count_account])
@@ -239,7 +219,6 @@ class Loginpage(tk.Frame):
             msg.showerror("Login", "Login Failed Plase try again")
             raise Exception("Login Failed")
 
-
 class Registerpage(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -250,7 +229,6 @@ class Registerpage(tk.Frame):
         self.canvas.pack()
         
         
-
         self.button_account_image = PhotoImage(file=ASSETS_PATH.joinpath("button_account.png"))
         self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(AccountPage) if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
         self.button_account.place(x=1307.0,y=30.0,width=56.0,height=56.0)
@@ -333,13 +311,13 @@ class Registerpage(tk.Frame):
                     self.entry_Password.delete(0, END)
                     msg.showerror("Error", "This ID is already in use")
                     raise Exception("This ID is already in use")
-            print(server.customer)
         server.add_customer(Customer(self.id, self.password, self.name, self.email, self.phone, self.address))
+        prompay1=PrompPay(self.id, 10000 ,self.phone)
+        prompay1.add_prompay(prompay1)
+        print(PrompPay.PrompPay_list)
         msg.showinfo("Success", "Register Success")
         self.controller.show_frame(Mainpage)
-        print(server.customer[-1])
         
-
 class Cartpage(tk.Frame):
     
     def __init__(self, parent, controller):
@@ -390,12 +368,10 @@ class Cartpage(tk.Frame):
         self.button_CreditCard = Button(self, text="CreditCard", bg="#1895F5", fg="white", font=("Angsana New", 10), command=self.show_Paymentcreditcard)
         self.button_CreditCard.place(x=1100, y=400 , width=100, height=30)
         
-        
-        
-
-        
-            
-        
+        self.button_clearcart_image = PhotoImage(file=ASSETS_PATH.joinpath("binbutton.png"))
+        self.button_clearcart = Button(self, image=self.button_clearcart_image,borderwidth=0,highlightthickness=0,relief="flat",command= cart.clear_cart_list)
+        self.button_clearcart.place(x=40.0,y=811.0,width=31.0,height=31.0)
+        self.canvascart.create_text(160, 665, text="ลบสิ้นค้าทั้งหมด", fill="#000000", font=("Angsana New", 20))
         
     try:
         def show_cart(self):
@@ -431,9 +407,8 @@ class Cartpage(tk.Frame):
             self.infoshipment4.place(x=880  , y=340)
     except print(0):
         pass 
-                
+    
     def show_Paymentprompay(self):
-        print("show_Paymentprompay")
         try:
             self.label_creditcard.destroy()
             self.entry_creditcard.destroy()
@@ -458,12 +433,8 @@ class Cartpage(tk.Frame):
         self.entry_codepromppay.place(x=880  , y=600 , width=250.0, height=35.0)
         self.button_confirmbuyprompay = Button(self, text="ยืนยันการสั่งซื้อ", bg="#1895F5", fg="white", font=("Angsana New", 10), command= self.check_Paymentprompay)
         self.button_confirmbuyprompay.place(x=1313, y=811 , width=100, height=50)
-
-        
-        
-        
+                
     def show_Paymentcreditcard(self):
-        print("show_Paymentcreditcard")
         try:
             self.label_promppay.destroy()
             self.entry_promppay.destroy()
@@ -566,11 +537,6 @@ class Cartpage(tk.Frame):
                 else:
                     msg.showerror("Error", "ชำระเงินไม่สำเร็จยอดเงินของคุณไม่พอเพียงพอ")
     
-    
-        
-
-
-
 class Paymentpage(tk.Frame):
     
     def __init__(self, parent, controller):
@@ -646,7 +612,7 @@ class MangaPage(tk.Frame):
         self.bookmg1 = Button(self, image=self.bookmg1_resize, borderwidth=0, highlightthickness=0,relief="flat")
         self.bookmg1.place(x=187.0, y=227.0, width=150.0, height=210.0)
         
-        self.label_bookmg1 = Label(self, text=f"{serverseries.book_list[6].book_name}", fg="#FFffff", font=("Inter", 10))
+        self.label_bookmg1 = Label(self, text=f"{serverseries.book_list[6].book_name}", fg="#000000", font=("Inter", 10))
         self.label_bookmg1.place(x=150.0, y=455.0, width=230.0, height=30.0)
         
         self.button_buymg1 = Button(self, text=f"ซื้อ {serverseries.book_list[6].price} บาท", bg="#1895F5", fg="white" , command=lambda: cart.add_to_cart_list(serverseries.book_list[6]))
@@ -831,7 +797,6 @@ class AccountPage(tk.Frame):
         self.canvas.pack()
         self.controller = controller
         
-        print("Account page" + str(server.count_account))
         self.TKuser_Id = StringVar()
         self.Tkuser_Name = StringVar()
         self.TKuser_Email = StringVar()
