@@ -94,12 +94,3 @@ nut1 = Customer("nut1", "1234", "nut1", "email", "phone", "address")
 System.add_customer(server , Guest)
 System.add_customer(server , nut)
 System.add_customer(server , nut1)
-
-
-print((serverseries.series[0].book_catalog_obj))
-print(serverseries.book_catalog_list[0].img)
-print(serverseries.book_list[0].img)
-print(serverseries.series[0].detail_series)
-print(serverseries.book_list[0].img)
-
-print(server.customer[0].order_history_list)

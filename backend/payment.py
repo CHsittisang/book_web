@@ -43,7 +43,3 @@ prompay1.add_prompay(prompay1)
 creditcard1.add_creditcard(creditcard1)
 
 
-
-print(PrompPay.PrompPay_list[0].tel_number)
-print(CreditCard.CreditCard_list[0].card_number)
-        
