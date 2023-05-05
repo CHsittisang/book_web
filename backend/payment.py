@@ -30,16 +30,9 @@ class CreditCard(payment):
     def add_creditcard(self, creditcard):
         self.CreditCard_list.append(creditcard)
 
-
-
 prompay1 = PrompPay("1", 10000, "0868115450")
 creditcard1 = CreditCard("2", 10000, "424242424242", "nut", "01/01/2025", "123")
 
 prompay1.add_prompay(prompay1)
-<<<<<<< HEAD
-creditcard1.add_creditcard(creditcard1)
-=======
 creditcard1.add_creditcard(creditcard1)
 
-
->>>>>>> 5cb2a4fa78c8c47b93fc61c983aa87fa79312a48

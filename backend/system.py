@@ -1,4 +1,4 @@
-from account import *
+from account import  Account , Customer
 from book import Book, Series , Book_catalog
 import csv
 
@@ -72,6 +72,10 @@ class Seriessystem:
 
 
 
+
+
+
+
 # runing
 server = System()
 serverseries = Seriessystem()
@@ -82,11 +86,6 @@ serverseries.read_book_data("backend/data/book.csv")
 Guest = Customer("Guest", "1234", "Guest", "email", "phone", "address")
 nut = Customer("nut", "1234", "nut", "email", "phone", "address")
 nut1 = Customer("nut1", "1234", "nut1", "email", "phone", "address")
-# top = Customer("top", "1234", "top", "top@email.com", "0982843051", "in the world")
 System.add_customer(server , Guest)
 System.add_customer(server , nut)
 System.add_customer(server , nut1)
-<<<<<<< HEAD
-# System.add_customer(server , top)
-=======
->>>>>>> 5cb2a4fa78c8c47b93fc61c983aa87fa79312a48

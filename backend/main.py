@@ -19,6 +19,7 @@ ASSETS_PATH = Path("backend/src/img")
 
 LARGE_FONT= ("Verdana", 12)
 
+
 class Bookstore(tk.Tk):
     def __init__(self, *args ,**kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
@@ -28,7 +29,6 @@ class Bookstore(tk.Tk):
         container = tk.Frame(self)
         container.pack(side="top", fill="both", expand=True)
 
-        
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
         self.frames = {}
@@ -38,11 +38,12 @@ class Bookstore(tk.Tk):
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
         self.show_frame(Mainpage)
-    
+        
     def show_frame(self, cont):
     
         frame = self.frames[cont]
         frame.tkraise()
+        
 class Mainpage(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -135,7 +136,7 @@ class Mainpage(tk.Frame):
         self.current_image = (self.current_image + 1) % len(self.images)
         self.canvas.itemconfig(self.image_item, image=self.images[self.current_image])
         self.after(10000, self.switch_image)
-        
+    
 class Loginpage(tk.Frame):
     
     count_account=0
@@ -143,7 +144,7 @@ class Loginpage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        
+
         self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
         self.canvas.pack()
         self.button_account_image = PhotoImage(file=ASSETS_PATH.joinpath("button_account.png"))
@@ -157,7 +158,6 @@ class Loginpage(tk.Frame):
         self.button_novel_image = PhotoImage(file=ASSETS_PATH.joinpath("button_novel.png"))
         self.button_novel = Button(self, image=self.button_novel_image, borderwidth=0, highlightthickness=0,command=lambda: controller.show_frame(NovelPage),relief="flat")
         self.button_novel.place(x=408, y=43)
-        
         
         self.button_cart_image = PhotoImage(file=ASSETS_PATH.joinpath("button_cart.png"))
         self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage)if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
@@ -176,7 +176,6 @@ class Loginpage(tk.Frame):
         self.textIdlogin.place(x=1049.0, y=200.0)
         self.textpasslogin = Label(self, text="Password" ,bg="#82c9ff", fg="#FFFFFF", font=("Inter", 12))
         self.textpasslogin.place(x=1047.0, y=290.0)
-        
         
         self.entry_image_textfill = PhotoImage(file=ASSETS_PATH.joinpath("button_bookstore.png"))
         self.canvas.create_image(1237.0, 241.5, image=self.entry_image_textfill)
@@ -199,7 +198,7 @@ class Loginpage(tk.Frame):
         self.button_image_signup = PhotoImage(file=ASSETS_PATH.joinpath("button_signup.png"))
         self.button_signup = Button(self, image=self.button_image_signup,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Registerpage),relief="flat")
         self.button_signup.place(x=1188.0,y=530.0,width=97.0,height=33.0)
-            
+        
     def system_login(self):
         self.id = self.entry_ID.get()
         self.password = self.entry_Password.get()
@@ -227,8 +226,7 @@ class Registerpage(tk.Frame):
         self.controller = controller
         self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
         self.canvas.pack()
-        
-        
+
         self.button_account_image = PhotoImage(file=ASSETS_PATH.joinpath("button_account.png"))
         self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(AccountPage) if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
         self.button_account.place(x=1307.0,y=30.0,width=56.0,height=56.0)
@@ -242,7 +240,6 @@ class Registerpage(tk.Frame):
         file=ASSETS_PATH.joinpath("button_novel.png"))
         self.button_novel = Button(self, image=self.button_novel_image, borderwidth=0, highlightthickness=0,command=lambda: controller.show_frame(NovelPage),relief="flat")
         self.button_novel.place(x=408, y=43)
-        
         
         self.button_cart_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_cart.png"))
@@ -312,20 +309,11 @@ class Registerpage(tk.Frame):
                     msg.showerror("Error", "This ID is already in use")
                     raise Exception("This ID is already in use")
         server.add_customer(Customer(self.id, self.password, self.name, self.email, self.phone, self.address))
-<<<<<<< HEAD:backend/main.py
-        prompay1=PrompPay(self.id, 10000 ,self.phone)
-        prompay1.add_prompay(prompay1)
-        print(PrompPay.PrompPay_list)
-        msg.showinfo("Success", "Register Success")
-        self.controller.show_frame(Mainpage)
-=======
         registerprompay = PrompPay(len(PrompPay.PrompPay_list)+1, 10000, self.phone)
         PrompPay.PrompPay_list.append(registerprompay)
         msg.showinfo("Success", "Register Success")
         self.controller.show_frame(Mainpage)
 
->>>>>>> 5cb2a4fa78c8c47b93fc61c983aa87fa79312a48:backend/index.py
-        
 class Cartpage(tk.Frame):
     
     def __init__(self, parent, controller):
@@ -334,7 +322,6 @@ class Cartpage(tk.Frame):
         self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
         self.canvas.pack()
         
-
         self.button_account_image = PhotoImage(file=ASSETS_PATH.joinpath("button_account.png"))
         self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(AccountPage) if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
         self.button_account.place(x=1307.0,y=30.0,width=56.0,height=56.0)
@@ -348,7 +335,6 @@ class Cartpage(tk.Frame):
         file=ASSETS_PATH.joinpath("button_novel.png"))
         self.button_novel = Button(self, image=self.button_novel_image, borderwidth=0, highlightthickness=0,command=lambda: controller.show_frame(NovelPage),relief="flat")
         self.button_novel.place(x=408, y=43)
-        
         
         self.button_cart_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_cart.png"))
@@ -415,7 +401,7 @@ class Cartpage(tk.Frame):
             self.infoshipment4.place(x=880  , y=340)
     except print(0):
         pass 
-    
+
     def show_Paymentprompay(self):
         try:
             self.label_creditcard.destroy()
@@ -441,7 +427,7 @@ class Cartpage(tk.Frame):
         self.entry_codepromppay.place(x=880  , y=600 , width=250.0, height=35.0)
         self.button_confirmbuyprompay = Button(self, text="ยืนยันการสั่งซื้อ", bg="#1895F5", fg="white", font=("Angsana New", 10), command= self.check_Paymentprompay)
         self.button_confirmbuyprompay.place(x=1313, y=811 , width=100, height=50)
-                
+
     def show_Paymentcreditcard(self):
         try:
             self.label_promppay.destroy()
@@ -483,8 +469,6 @@ class Cartpage(tk.Frame):
             if codediscountget == i.discount_code:
                 sumprice = sumprice - i.balance
         for i in PrompPay.PrompPay_list:
-            print("รูปออกมา"+i.tel_number)
-            print("รับค่า"+prompayget)
             if prompayget == i.tel_number:
                 if i.payment_balance >= sumprice:
                     time = datetime.datetime.now()
@@ -553,7 +537,6 @@ class Paymentpage(tk.Frame):
         self.canvas = Canvas(self, bg="#1895F5", height=110, width=1440, bd=0, highlightthickness=0, relief="ridge")
         self.canvas.pack()
         
-
         self.button_account_image = PhotoImage(file=ASSETS_PATH.joinpath("button_account.png"))
         self.button_account = Button(self, image=self.button_account_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(AccountPage) if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
         self.button_account.place(x=1307.0,y=30.0,width=56.0,height=56.0)
@@ -568,7 +551,6 @@ class Paymentpage(tk.Frame):
         self.button_novel = Button(self, image=self.button_novel_image, borderwidth=0, highlightthickness=0,command=lambda: controller.show_frame(NovelPage),relief="flat")
         self.button_novel.place(x=408, y=43)
         
-        
         self.button_cart_image = PhotoImage(
         file=ASSETS_PATH.joinpath("button_cart.png"))
         self.button_cart = Button(self,image=self.button_cart_image,borderwidth=0,highlightthickness=0,command=lambda: controller.show_frame(Cartpage)if len(server.customerlogin) == 1 else controller.show_frame(Loginpage),relief="flat")
@@ -581,9 +563,6 @@ class Paymentpage(tk.Frame):
         self.canvascart = Canvas(self, bg="#82C9FF", height=703, width=1440, bd=0, highlightthickness=0, relief="ridge")
         self.canvascart.place(x=0, y=163)
         
-    
-        
- 
 class MangaPage(tk.Frame):
     
     def __init__(self, parent, controller):
