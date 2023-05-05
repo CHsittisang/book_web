@@ -312,11 +312,19 @@ class Registerpage(tk.Frame):
                     msg.showerror("Error", "This ID is already in use")
                     raise Exception("This ID is already in use")
         server.add_customer(Customer(self.id, self.password, self.name, self.email, self.phone, self.address))
+<<<<<<< HEAD:backend/main.py
         prompay1=PrompPay(self.id, 10000 ,self.phone)
         prompay1.add_prompay(prompay1)
         print(PrompPay.PrompPay_list)
         msg.showinfo("Success", "Register Success")
         self.controller.show_frame(Mainpage)
+=======
+        registerprompay = PrompPay(len(PrompPay.PrompPay_list)+1, 10000, self.phone)
+        PrompPay.PrompPay_list.append(registerprompay)
+        msg.showinfo("Success", "Register Success")
+        self.controller.show_frame(Mainpage)
+
+>>>>>>> 5cb2a4fa78c8c47b93fc61c983aa87fa79312a48:backend/index.py
         
 class Cartpage(tk.Frame):
     
@@ -421,7 +429,7 @@ class Cartpage(tk.Frame):
             self.button_confirmbuycredit.destroy()
         except:
             pass
-        self.button_CreditCard.configure(state="normal") # ปิดใช้งาน button_CreditCard
+        self.button_CreditCard.configure(state="normal")
         self.button_PrompPay.configure(state="disabled")
         self.label_promppay = Label(self, text="PrompPay", bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
         self.label_promppay.place(x=880  , y=450)
@@ -443,7 +451,7 @@ class Cartpage(tk.Frame):
             self.button_confirmbuyprompay.destroy()
         except:
             pass
-        self.button_PrompPay.configure(state="normal")  # ปิดใช้งาน button_PrompPay
+        self.button_PrompPay.configure(state="normal")
         self.button_CreditCard.configure(state="disabled")
         self.label_creditcard = Label(self, text="CreditCard", bg="#82C9FF", fg="#000000", font=("Angsana New", 20))
         self.label_creditcard.place(x=880  , y=450)
@@ -475,6 +483,8 @@ class Cartpage(tk.Frame):
             if codediscountget == i.discount_code:
                 sumprice = sumprice - i.balance
         for i in PrompPay.PrompPay_list:
+            print("รูปออกมา"+i.tel_number)
+            print("รับค่า"+prompayget)
             if prompayget == i.tel_number:
                 if i.payment_balance >= sumprice:
                     time = datetime.datetime.now()
@@ -493,11 +503,10 @@ class Cartpage(tk.Frame):
                     self.label_codepromppay.destroy()
                     self.entry_codepromppay.destroy()
                     self.button_confirmbuyprompay.destroy()
+                    
                 else:
                     msg.showerror("Error", "ชำระเงินไม่สำเร็จยอดเงินของคุณไม่พอเพียงพอ")
-            else:
-                msg.showerror("Error", "กรุณากรอกข้อมูลให้ถูกต้อง")
-                raise Exception("กรุณากรอกข้อมูลให้ถูกต้อง")
+                    raise Exception("ชำระเงินไม่สำเร็จยอดเงินของคุณไม่พอเพียงพอ")
             
     def check_Paymentcreditcard(self):
         creditcardget = self.entry_creditcard.get()

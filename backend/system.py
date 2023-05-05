@@ -86,4 +86,7 @@ nut1 = Customer("nut1", "1234", "nut1", "email", "phone", "address")
 System.add_customer(server , Guest)
 System.add_customer(server , nut)
 System.add_customer(server , nut1)
+<<<<<<< HEAD
 # System.add_customer(server , top)
+=======
+>>>>>>> 5cb2a4fa78c8c47b93fc61c983aa87fa79312a48
